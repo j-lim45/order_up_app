@@ -1,20 +1,29 @@
 import 'package:ntp/ntp.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'database_service.dart';
 
 
-  Future<DateTime?> getNetworkTime() async {
-      try {
-        DateTime ntpTime = await NTP.now();
-        return ntpTime;
-      } catch (e) {
-        // Handle network errors or other exceptions
-        print('Error getting NTP time: $e');
-        return null;
-      }
-    }
 
 void main() async {
-  print(await getNetworkTime());
+  DataSnapshot? snapshot = await DatabaseService().read(path: 'test/products');
+  print(snapshot?.value);
 }
+
+
+//   Future<DateTime?> getNetworkTime() async {
+//       try {
+//         DateTime ntpTime = await NTP.now();
+//         return ntpTime;
+//       } catch (e) {
+//         // Handle network errors or other exceptions
+//         print('Error getting NTP time: $e');
+//         return null;
+//       }
+//     }
+
+// void main() async {
+//   print(await getNetworkTime());
+// }
 
 
 
