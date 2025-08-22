@@ -9,7 +9,7 @@ class ProductContainer extends StatelessWidget {
   final String name;
   final String imgUrl;
   final double price;
-  final int quantity;
+  final String quantity;
 
   const ProductContainer({super.key, required this.productId, required this.name, required this.imgUrl, required this.price, required this.quantity});
 
@@ -77,7 +77,32 @@ class AppHomePage extends StatefulWidget {
 }
 
 class _AppHomePage extends State<AppHomePage> {
-  String debugg = '';
+
+  Future<List<Widget>> getContainerList() async {
+    List productIdList = await getProductIdList;
+    List<Widget> containerList = [];
+
+    // gets attributes of products and places them in each container widget
+    for (final productId in productIdList) {
+      String name = ((await DatabaseService().read(path: 'products/$productId/name'))?.value).toString();
+      String image_url = ((await DatabaseService().read(path: 'products/$productId/image_url'))?.value).toString();
+      double price = double.parse((await DatabaseService().read(path: 'products/$productId/name'))?.value as String);
+      String quantity = ((await DatabaseService().read(path: 'products/$productId/quantity'))?.value).toString();
+
+      containerList.add(ProductContainer(productId: productId, name: name, imgUrl: image_url, price: price, quantity: quantity));
+    }
+
+    return containerList;
+  }
+
+  Future<List> get getProductIdList async {
+    DataSnapshot? snapshot = await DatabaseService().read(path: 'products');
+    
+    final data = snapshot?.value as Map<Object?, Object?>;
+    List<String> productIdList = data.keys.map((keys) => keys.toString()).toList();
+
+    return productIdList;
+  }
 
 
   @override
@@ -103,7 +128,7 @@ class _AppHomePage extends State<AppHomePage> {
                   containerProduct,
                   containerProduct,
               ],),
-              Text(debugg),
+              //ElevatedButton(onPressed: () {getContainerList();}, child: Text("CLICK ME"))
             ]
           ,)
         ,)
