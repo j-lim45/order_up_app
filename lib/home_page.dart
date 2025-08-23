@@ -85,7 +85,7 @@ class _AppHomePage extends State<AppHomePage> {
     // gets attributes of products and places them in each container widget
     for (final productId in productIdList) {
       String name = ((await DatabaseService().read(path: 'products/$productId/name'))?.value).toString();
-      String image_url = ((await DatabaseService().read(path: 'products/$productId/image_url'))?.value).toString();
+      String imageUrl = ((await DatabaseService().read(path: 'products/$productId/image_url'))?.value).toString();
       double price = double.parse((await DatabaseService().read(path: 'products/$productId/name'))?.value as String);
       String quantity = ((await DatabaseService().read(path: 'products/$productId/quantity'))?.value).toString();
 
