@@ -1,83 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'database_service.dart';
-
-// This is a product container that should hold all important information about a product and it has its own
-// card displayed on the home page
-class ProductContainer extends StatelessWidget {
-  final String productId;
-  final String name;
-  final String imgUrl;
-  final double price;
-  final String quantity;
-
-  const ProductContainer({
-    super.key,
-    required this.productId,
-    required this.name,
-    required this.imgUrl,
-    required this.price,
-    required this.quantity,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      child: Container(
-        margin: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Colors.yellow,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        width: 150,
-        height: 150,
-        child: Column(
-          children: [
-            Image.network(imgUrl, width: 80, height: 90),
-            Text(productId),
-            Text("₱${price.toString()}"),
-            Text("Stock: ${quantity.toString()}"),
-          ],
-        ),
-      ),
-      onTap: () => {},
-    );
-  }
-}
-
-Future<void> getProducts() async {
-  // DataSnapshot needs line 2 to function and holds a data from Firebase DB
-  DataSnapshot? snapshot = await DatabaseService().read(path: 'test/products');
-  print(snapshot?.value);
-}
-
-// Returns a container or a listing of a product with info such as product name, price, and quantity
-InkWell get containerProduct {
-  return InkWell(
-    child: Container(
-      margin: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.yellow,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      width: 150,
-      height: 150,
-      child: Column(
-        children: [
-          Image.network(
-            'https://imartgrocersph.com/wp-content/uploads/2020/09/Chippy-Barbecue-27g.png',
-            width: 80,
-            height: 90,
-          ),
-          Text("Chippy"),
-          Text("P20"),
-          Text("HELLo"),
-        ],
-      ),
-    ),
-    onTap: () => {getProducts},
-  );
-}
+import '../backend/database_service.dart';
+import 'package:order_up_app/components/product_container.dart';
 
 // This widget is the first thing a user should see after logging in
 class AppHomePage extends StatefulWidget {
@@ -88,6 +12,9 @@ class AppHomePage extends StatefulWidget {
 }
 
 class _AppHomePage extends State<AppHomePage> {
+  int _selectedNavBarIndex = 0; // Index of the Page on the Bottom Navbar
+
+  // !!! PLEASE REMOVE THIS SOON !!! ///
   Future<List<Widget>> getContainerList() async {
     List productIdList = await getProductIdList;
     List<Widget> containerList = [];
@@ -133,6 +60,8 @@ class _AppHomePage extends State<AppHomePage> {
     return productIdList;
   }
 
+  /// !!! !!! ///
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -152,6 +81,27 @@ class _AppHomePage extends State<AppHomePage> {
               //ElevatedButton(onPressed: () {getContainerList();}, child: Text("CLICK ME"))
             ],
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: Icon(Icons.camera),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: 0,
+          items: [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.inventory_2_outlined),
+              label: "Stock",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.content_paste),
+              label: "Reports",
+            ),
+            BottomNavigationBarItem(icon: Icon(Icons.menu_book), label: "Menu"),
+          ],
+          selectedItemColor: Colors.amber[800],
+          onTap: (int index) {},
         ),
       ),
     );
