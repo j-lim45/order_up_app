@@ -7,8 +7,9 @@ void main() async {
   try {
     await Firebase.initializeApp(); // Initializes Firebase
     runApp(
+      // Runs app normally if connection is successfully made
       const MyApp(connected: true),
-    ); // Runs app normally if connection is successfully made
+    );
   } catch (e) {
     runApp(MyApp(connected: false, error: e.toString()));
   }
