@@ -76,20 +76,21 @@ class _AppMainPage extends State<AppMainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+    return Scaffold(
         // App Bar
-        appBar: AppBar(backgroundColor: Colors.red, title: Text("Hello")),
+        appBar: AppBar(backgroundColor: Color(0xFFAE3D33), title: Text("Hello")),
 
-        // Body of the column of product listings
+        // Pages you can visit from the navbar
         body: _navBarPages[_selectedNavBarIndex],
+
+        // Camera page
         floatingActionButton: FloatingActionButton(
           onPressed: () {},
           child: Icon(Icons.camera),
         ),
+
+        // Navbar (Home, Stock, Reports, Menu)
         bottomNavigationBar: BottomNavBar(currentIndex: _selectedNavBarIndex, onClicked: (int index) {_onClicked(index);})
-      ),
-    );
+      );
   }
 }
