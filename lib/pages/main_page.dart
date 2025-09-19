@@ -63,7 +63,6 @@ class _AppMainPage extends State<AppMainPage> {
     List<String> productIdList = data.keys
         .map((keys) => keys.toString())
         .toList();
-
     return productIdList;
   }
 
