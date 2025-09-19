@@ -16,8 +16,17 @@ class _StockPage extends State<StockPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Text("Stock Page")
-    );
+    return Center(
+        child: Column(
+          children: [
+            Text("Snacks"),
+            Container(
+              margin: EdgeInsets.all(16), padding: EdgeInsets.all(12),
+              width: 320, height: 320,
+              decoration: BoxDecoration(color: Colors.red),
+            )
+          ],
+        )
+      );
   }
 }
