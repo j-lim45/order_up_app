@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:order_up_app/backend/auth_service.dart';
 import 'package:order_up_app/pages/loading_screen.dart';
 import 'package:order_up_app/pages/main_page.dart';
-import 'home_page.dart';
+import 'navbar_items/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-import '../backend/database_service.dart';
+import '../../backend/database_service.dart';
 import 'package:order_up_app/components/product_container.dart';
-import 'package:order_up_app/pages/home_page.dart';
+import 'package:order_up_app/pages/navbar_items/home_page.dart';
 import 'package:order_up_app/components/bottom_nav_bar.dart';
 
-class MenuPage extends StatefulWidget {
-  const MenuPage({super.key});
+class ReportsPage extends StatefulWidget {
+  const ReportsPage({super.key});
 
   @override
-  State<MenuPage> createState() => _MenuPage();
+  State<ReportsPage> createState() => _ReportsPage();
 }
 
-class _MenuPage extends State<MenuPage> {
+class _ReportsPage extends State<ReportsPage> {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text("Menu Page")
+      body: Text("Reports Page")
     );
   }
 }

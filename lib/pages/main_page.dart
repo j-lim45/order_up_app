@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import '../backend/database_service.dart';
 import 'package:order_up_app/components/product_container.dart';
-import 'package:order_up_app/pages/home_page.dart';
-import 'package:order_up_app/pages/stock_page.dart';
-import 'package:order_up_app/pages/reports_page.dart';
-import 'package:order_up_app/pages/menu_page.dart';
+import 'package:order_up_app/pages/navbar_items/home_page.dart';
+import 'package:order_up_app/pages/navbar_items/stock_page.dart';
+import 'package:order_up_app/pages/navbar_items/reports_page.dart';
+import 'package:order_up_app/pages/navbar_items/menu_page.dart';
 import 'package:order_up_app/components/bottom_nav_bar.dart';
 
 // This widget is the first thing a user should see after logging in

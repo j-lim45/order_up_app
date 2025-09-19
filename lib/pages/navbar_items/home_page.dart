@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-import '../backend/database_service.dart';
+import '../../backend/database_service.dart';
 import 'package:order_up_app/components/product_container.dart';
-import 'package:order_up_app/pages/home_page.dart';
+import 'package:order_up_app/pages/navbar_items/home_page.dart';
 import 'package:order_up_app/components/bottom_nav_bar.dart';
 
-class ReportsPage extends StatefulWidget {
-  const ReportsPage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<ReportsPage> createState() => _ReportsPage();
+  State<HomePage> createState() => _HomePage();
 }
 
-class _ReportsPage extends State<ReportsPage> {
+class _HomePage extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text("Reports Page")
+      body: Text("Home Page")
     );
   }
 }
