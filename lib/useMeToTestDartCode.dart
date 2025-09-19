@@ -1,13 +1,13 @@
-import 'package:ntp/ntp.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'database_service.dart';
+// import 'package:ntp/ntp.dart';
+// import 'package:firebase_database/firebase_database.dart';
+// import 'database_service.dart';
 
 
 
-void main() async {
-  DataSnapshot? snapshot = await DatabaseService().read(path: 'test/products');
-  print(snapshot?.value);
-}
+// void main() async {
+//   DataSnapshot? snapshot = await DatabaseService().read(path: 'test/products');
+//   print(snapshot?.value);
+// }
 
 
 //   Future<DateTime?> getNetworkTime() async {
