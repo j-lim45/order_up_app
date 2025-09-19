@@ -35,6 +35,7 @@ class _LoginPage extends State<LoginPage> {
               return AppMainPage();
 
             } else {
+              // please log in
               return Scaffold(
                 body: Column(
                   children: [
