@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:order_up_app/backend/auth_service.dart';
 import 'package:order_up_app/pages/loading_screen.dart';
-import '../backend/auth_service.dart';
+import 'package:order_up_app/pages/main_page.dart';
 import 'home_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -13,28 +13,29 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPage extends State<LoginPage> {
-  TextEditingController emailController =
-      TextEditingController(); // control the credential textboxes
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController emailController = TextEditingController();    // Controls the email textbox
+  TextEditingController passwordController = TextEditingController(); // Controls the password textbox
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
+    return ValueListenableBuilder(                                    // Used for checking if a variable changes
       valueListenable:
-          authService, // Pay attention and listen if this authService changes or smthn
+          authService,                                                // Pays attention and listens if this variable will change
       builder: (context, authService, child) {
         return StreamBuilder(
           stream: authService.authStateChanges,
           builder: (context, snapshot) {
+
             if (snapshot.connectionState == ConnectionState.waiting) {
               // are u waiting?
               return LoadingScreen();
+
             } else if (snapshot.hasData) {
               // are u logged in?
-              return AppHomePage();
+              return AppMainPage();
+
             } else {
               return Scaffold(
-                // !!! needs its own class for the actual Login page !!!
                 body: Column(
                   children: [
                     Expanded(
