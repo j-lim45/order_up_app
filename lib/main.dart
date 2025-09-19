@@ -20,12 +20,16 @@ class MyApp extends StatelessWidget {
   final String? error;
   const MyApp({super.key, required this.connected, this.error});
 
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {'/': (context) => LoginPage()}, // Goes to Login page
+      theme: ThemeData(
+        scaffoldBackgroundColor: Color(0xFFFFEBD2)
+      )
     );
   }
 }
