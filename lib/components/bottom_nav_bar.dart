@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:order_up_app/components/app_colors.dart';
 
 class BottomNavBar extends StatelessWidget {
   final int currentIndex;
@@ -10,6 +11,8 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
           currentIndex: currentIndex,
+          selectedItemColor: AppColors.maroonColor,
+          unselectedItemColor: AppColors.unselectedItem,
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.home), 
@@ -27,8 +30,8 @@ class BottomNavBar extends StatelessWidget {
               label: "Menu"
             ),
           ],
-          selectedItemColor: Colors.amber[800],
           onTap: onClicked,
+          showUnselectedLabels: true,
         );
   }
 }

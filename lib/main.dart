@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'pages/login_page.dart';
+import 'components/app_colors.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Initializes binding before running Firebase
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {'/': (context) => LoginPage()}, // Goes to Login page
       theme: ThemeData(
-        scaffoldBackgroundColor: Color(0xFFFFEBD2)
+        scaffoldBackgroundColor: AppColors.pitchColor,
+        canvasColor: AppColors.appBarColor
       )
     );
   }
