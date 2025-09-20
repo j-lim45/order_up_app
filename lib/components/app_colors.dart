@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// Colors used by the app should all be here
 class AppColors {
   static Color pitchColor = Color(0xFFFFEBD2);
   static Color appBarColor = Color(0xFFFFE1BD);
