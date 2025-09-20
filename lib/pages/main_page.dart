@@ -7,6 +7,7 @@ import 'package:order_up_app/pages/navbar_items/stock_page.dart';
 import 'package:order_up_app/pages/navbar_items/reports_page.dart';
 import 'package:order_up_app/pages/navbar_items/menu_page.dart';
 import 'package:order_up_app/components/bottom_nav_bar.dart';
+import 'package:order_up_app/components/app_colors.dart';
 
 // This widget is the first thing a user should see after logging in
 class AppMainPage extends StatefulWidget {
@@ -84,7 +85,27 @@ class _AppMainPage extends State<AppMainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         // App Bar
-        appBar: AppBar(backgroundColor: Color(0xFFAE3D33), title: Text(_appbarText[_selectedNavBarIndex]!)),
+        appBar: AppBar(
+          backgroundColor: AppColors.maroonColor, 
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Icon(Icons.abc),
+              Text(
+              _appbarText[_selectedNavBarIndex]!,
+              style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.headerColor),
+              ),
+              PopupMenuButton(
+                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                  PopupMenuItem<String>(value: 'Account', child: Text('Account')),
+                  PopupMenuItem<String>(value: 'About', child: Text('About')),
+                  PopupMenuItem<String>(value: 'Log out', child: Text('Log out')),
+                ],
+                icon: Icon(Icons.menu, color: AppColors.pitchColor),
+              )
+            ],
+          )
+        ),
 
         // Pages you can visit from the navbar
         body: _navBarPages[_selectedNavBarIndex],
@@ -96,7 +117,15 @@ class _AppMainPage extends State<AppMainPage> {
         ),
 
         // Navbar (Home, Stock, Reports, Menu)
-        bottomNavigationBar: BottomNavBar(currentIndex: _selectedNavBarIndex, onClicked: (int index) {_onClicked(index);})
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            border: Border(top: BorderSide(color: AppColors.maroonColor, width: 2))
+          ),
+          child: BottomNavBar(
+            currentIndex: _selectedNavBarIndex, 
+            onClicked: (int index) {_onClicked(index);}
+          )
+        )
       );
   }
 }
