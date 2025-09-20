@@ -19,7 +19,7 @@ class AppMainPage extends StatefulWidget {
 
 class _AppMainPage extends State<AppMainPage> {
   int _selectedNavBarIndex = 0; // Index of the Page on the Bottom Navbar
-  Map<int, String> _appbarText = {
+  final Map<int, String> _appbarText = {
     0: "Home",
     1: "Stock",
     2: "Reports",
