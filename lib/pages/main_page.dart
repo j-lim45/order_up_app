@@ -18,6 +18,12 @@ class AppMainPage extends StatefulWidget {
 
 class _AppMainPage extends State<AppMainPage> {
   int _selectedNavBarIndex = 0; // Index of the Page on the Bottom Navbar
+  Map<int, String> _appbarText = {
+    0: "Home",
+    1: "Stock",
+    2: "Reports",
+    3: "Menu"
+  };
 
   final List<Widget> _navBarPages = [HomePage(), StockPage(), ReportsPage(), MenuPage()];
 
@@ -78,7 +84,7 @@ class _AppMainPage extends State<AppMainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         // App Bar
-        appBar: AppBar(backgroundColor: Color(0xFFAE3D33), title: Text("Hello")),
+        appBar: AppBar(backgroundColor: Color(0xFFAE3D33), title: Text(_appbarText[_selectedNavBarIndex]!)),
 
         // Pages you can visit from the navbar
         body: _navBarPages[_selectedNavBarIndex],
