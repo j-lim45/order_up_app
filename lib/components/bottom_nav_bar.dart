@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:order_up_app/components/app_colors.dart';
 
+// Bottom Navigation Bar of the application
 class BottomNavBar extends StatelessWidget {
-  final int currentIndex;
-  final ValueChanged<int> onClicked;
+  final int currentIndex;                       // Current index (item) that is last clicked on the navbar
+  final ValueChanged<int> onClicked;            // Function that passes an int index to change widget when clicked on an item
 
   const BottomNavBar({super.key, required this.currentIndex, required this.onClicked});
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-          currentIndex: currentIndex,
+          currentIndex: currentIndex,           // Used to identify which item is selected
           selectedItemColor: AppColors.maroonColor,
           unselectedItemColor: AppColors.unselectedItem,
           items: [
