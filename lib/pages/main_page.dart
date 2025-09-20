@@ -90,7 +90,7 @@ class _AppMainPage extends State<AppMainPage> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Icon(Icons.abc),
+              Image.asset('img/orderuplogo.png', scale: 16,),
               Text(
               _appbarText[_selectedNavBarIndex]!,
               style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.headerColor),
