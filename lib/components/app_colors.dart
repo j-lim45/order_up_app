@@ -6,6 +6,8 @@ class AppColors {
   static Color appBarColor = Color(0xFFFFE1BD);
   static Color headerColor = Colors.amber;
 
+  static Color whiteColor = const Color(0xFFFFF9F5);
+
   static Color maroonColor = Color(0xFFAE3D33);
   static Color lightMaroonColor = Color(0xFFEEB087);
 
