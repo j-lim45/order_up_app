@@ -18,7 +18,11 @@ class AppMainPage extends StatefulWidget {
 }
 
 class _AppMainPage extends State<AppMainPage> {
-  int _selectedNavBarIndex = 0; // Index of the Page on the Bottom Navbar
+
+  // -------- NAV BAR INDICES -------- //
+  int _selectedNavBarIndex = 0; // Index of the Page on the Bottom Navbar (First page to be shown is always Home page)
+
+  // Used to identify which text to display on the app bar
   final Map<int, String> _appbarText = {
     0: "Home",
     1: "Stock",
@@ -26,9 +30,16 @@ class _AppMainPage extends State<AppMainPage> {
     3: "Menu"
   };
 
-  final List<Widget> _navBarPages = [HomePage(), StockPage(), ReportsPage(), MenuPage()];
+  // Used to identify which widget or page to go to when user clicks on an navbar item
+  final List<Widget> _navBarPages = [
+      HomePage(),               // 0
+      StockPage(),              // 1
+      ReportsPage(),            // 2
+      MenuPage()                // 3
+    ];
+  // --------------------------------- //
 
-  // !!! PLEASE REMOVE THIS SOON !!! ///
+  // !!! PLEASE FIX THIS SOON !!! ///
   Future<List<Widget>> getContainerList() async {
     List productIdList = await getProductIdList;
     List<Widget> containerList = [];
@@ -75,6 +86,7 @@ class _AppMainPage extends State<AppMainPage> {
 
   /// !!! !!! ///
 
+  // Invoked when user clicks on a navbar item
   void _onClicked(int index) {
     setState(() {
       _selectedNavBarIndex = index;
