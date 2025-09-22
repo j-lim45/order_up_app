@@ -4,6 +4,8 @@ import '../../backend/database_service.dart';
 import 'package:order_up_app/components/product_container.dart';
 import 'package:order_up_app/components/app_colors.dart';
 import 'package:order_up_app/backend/product_class.dart';
+import 'package:order_up_app/components/stock_table.dart';
+
 
 class StockPage extends StatefulWidget {
   const StockPage({super.key});
@@ -74,17 +76,7 @@ class _StockPage extends State<StockPage> {
               ),
 
               // Stock Table
-              child: DataTable(
-                columns: [
-                  DataColumn(label: Text('PRODUCT')),
-                  DataColumn(label: Text("PRICE")),
-                  DataColumn(label: Text("QUANTITY")),
-                ],
-                dataRowMaxHeight: 30,
-                dataRowMinHeight: 10, // ? Subject to change / Not sure ? //
-                rows: [
-                ]
-              )
+              child: StockTable()
             )
           ],
         )
