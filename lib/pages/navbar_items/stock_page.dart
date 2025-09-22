@@ -16,6 +16,7 @@ class StockPage extends StatefulWidget {
 
 class _StockPage extends State<StockPage> {
 
+  // ?????????? Possibly unused ??????????????? //
   Future<List<Product>> getContainerList() async {
     List productIdList = await getProductIdList;
     List<Product> productList = [];
@@ -59,6 +60,7 @@ class _StockPage extends State<StockPage> {
         .toList();
     return productIdList;
   }
+  // ?????????????????????????? //
 
   @override
   Widget build(BuildContext context) {
@@ -67,17 +69,11 @@ class _StockPage extends State<StockPage> {
         child: Column(
           children: [
             Text("Snacks"),
-            Container(
-              margin: EdgeInsets.all(16), padding: EdgeInsets.all(12),
-              width: 500,
-              decoration: BoxDecoration(
-                color: AppColors.whiteColor, 
-                borderRadius: BorderRadius.circular(10)
-              ),
-
-              // Stock Table
-              child: StockTable()
-            )
+            StockTable(category: 'snack'),
+            Text("Drinks"),
+            StockTable(category: 'drink'),
+            Text("Dishes"),
+            StockTable(category: 'dish')
           ],
         )
       )
