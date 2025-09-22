@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:order_up_app/components/app_colors.dart';
 
 class StockTable extends StatelessWidget {
-  const StockTable({super.key});
+  final String category;
+
+  const StockTable({super.key, required this.category});
+  
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +25,7 @@ class StockTable extends StatelessWidget {
         }
 
         // Raw json data from products database
-        final data = snapshot.data!.snapshot.value as Map<dynamic, dynamic>;
+        final data = snapshot.data!.snapshot.value as Map<Object?, Object?>;
 
         // Convert to DataRow list (direct, no model class)
         final List<DataRow> productRows = [];
@@ -30,22 +34,33 @@ class StockTable extends StatelessWidget {
         for (var product in data.entries) {
           final productRow = product.value as Map<Object?, Object?>;
 
-          productRows.add(
-            DataRow(cells: [
-              DataCell(Text(productRow['name'].toString())),
-              DataCell(Text(productRow['price'].toString())),
-              DataCell(Text(productRow['quantity'].toString()))
-            ]),
-          );
+          if (productRow['category'].toString()==category) {
+            productRows.add(
+              DataRow(cells: [
+                DataCell(Text(productRow['name'].toString())),
+                DataCell(Text(productRow['price'].toString())),
+                DataCell(Text(productRow['quantity'].toString()))
+              ]),
+            );
+          }
         }
+        return Container(
+          margin: EdgeInsets.all(16), padding: EdgeInsets.all(12),
+          width: 500,
+          decoration: BoxDecoration(
+            color: AppColors.whiteColor, 
+            borderRadius: BorderRadius.circular(10)
+          ),
 
-        return DataTable(
-          columns: [
-            DataColumn(label: Text('PRODUCT')),
-            DataColumn(label: Text("PRICE")),
-            DataColumn(label: Text("QUANTITY"))
-          ],
-          rows: productRows,
+          // Stock Table
+          child: DataTable(
+            columns: [
+              DataColumn(label: Text('PRODUCT')),
+              DataColumn(label: Text("PRICE")),
+              DataColumn(label: Text("QUANTITY"))
+            ],
+            rows: productRows,
+          )
         );
       },
     );
