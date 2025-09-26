@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:order_up_app/backend/auth_service.dart';
 import 'package:order_up_app/pages/loading_screen.dart';
 import 'package:order_up_app/pages/main_page.dart';
+import 'package:order_up_app/pages/forgot_password.dart';
 import 'navbar_items/home_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -13,8 +14,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPage extends State<LoginPage> {
-  TextEditingController emailController = TextEditingController();    // Controls the email textbox
-  TextEditingController passwordController = TextEditingController(); // Controls the password textbox
+  final TextEditingController _emailController = TextEditingController();    // Controls the email textbox
+  final TextEditingController _passwordController = TextEditingController(); // Controls the password textbox
+  bool _obscurePassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -37,44 +39,164 @@ class _LoginPage extends State<LoginPage> {
             } else {
               // please log in
               return Scaffold(
-                body: Column(
-                  children: [
-                    Expanded(
-                      child: Center(
-                        child: Image.network(
-                          'https://www.orderup.com.au/file/2019/03/logo18.png',
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Center(
-                        child: Column(
-                          children: [
-                            Text('Log in to OrderUp!'),
-                            TextField(
-                              controller: emailController,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: 'Email Address',
+                backgroundColor: const Color(0xFFFFEBD2),
+                body: Center(
+                  child: SizedBox(
+                    width: 412,
+                    height: 917,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 60),
+
+                          // Logo Asset //
+                          CircleAvatar(
+                            radius: 60,
+                            backgroundImage: const AssetImage('img/orderuplogo.png'),
+                            backgroundColor: Colors.transparent,
+                          ),
+
+                          const SizedBox(height: 20),
+
+                          // Login Card //
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 20),
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(24),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Welcome back!",
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                const Text(
+                                  "Please enter your details",
+                                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                                ),
+                                const SizedBox(height: 20),
+
+                                // Username //
+                                const Text(
+                                  "Email:",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                TextField(
+                                  controller: _emailController,
+                                  decoration: const InputDecoration(
+                                    prefixIcon: Icon(Icons.person_outline),
+                                    hintText: "Type your email",
+                                  ),
+                                ),
+                                const SizedBox(height: 15),
+
+                                // Password //
+                                const Text(
+                                  "Password:",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                TextField(
+                                  controller: _passwordController,
+                                  obscureText: true,
+                                  decoration: InputDecoration(
+                                    prefixIcon: const Icon(Icons.lock_outline),
+                                    hintText: "Type your password",
+                                    suffixIcon: IconButton(
+                                      icon: Icon(
+                                        _obscurePassword
+                                            ? Icons.visibility_off
+                                            : Icons.visibility,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          _obscurePassword = !_obscurePassword;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ),
+
+                                const SizedBox(height: 10),
+
+                                // Forgot Password //
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => const ForgotPassword(),
+                                        ),
+                                      );
+                                    },
+                                    child: const Text(
+                                      "Forgot Password?",
+                                      style: TextStyle(
+                                        color: Color(0xFF3FBFFF),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+
+                                const SizedBox(height: 10),
+
+                                // Sign In button //
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color(0xFF3FBFFF),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      padding: const EdgeInsets.symmetric(vertical: 12),
+                                    ),
+                                    onPressed: clickLoginButton,
+                                    child: const Text(
+                                      "Sign in",
+                                      style: TextStyle(fontSize: 16, color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          const SizedBox(height: 60),
+
+                          // Footer //
+                          Container(
+                            width: double.infinity,
+                            color: const Color(0xFFAE3D33),
+                            padding: const EdgeInsets.all(8),
+                            child: const Center(
+                              child: Text(
+                                "©2025 OrderUp. All rights reserved",
+                                style: TextStyle(color: Colors.white, fontSize: 12),
                               ),
                             ),
-                            TextField(
-                              controller: passwordController,
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: 'Password',
-                              ),
-                            ),
-                            ElevatedButton(
-                              onPressed: clickLoginButton,
-                              child: Text('Login'),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
+                  ),
                 ),
               );
             }
@@ -86,16 +208,16 @@ class _LoginPage extends State<LoginPage> {
 
   @override
   void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
   void clickLoginButton() async {
     try {
       await authService.value.signIn(
-        email: emailController.text,
-        password: passwordController.text,
+        email: _emailController.text,
+        password: _passwordController.text,
       );
     } catch (e) {
       showError(e);
