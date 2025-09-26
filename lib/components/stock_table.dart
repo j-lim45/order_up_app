@@ -40,7 +40,9 @@ class StockTable extends StatelessWidget {
                 DataCell(Text(productRow['name'].toString())),
                 DataCell(Text(productRow['price'].toString())),
                 DataCell(Text(productRow['quantity'].toString()))
-              ]),
+              ],
+              onSelectChanged: (value) => {},
+            ),
             );
           }
         }
@@ -60,6 +62,7 @@ class StockTable extends StatelessWidget {
               DataColumn(label: Text("QUANTITY"))
             ],
             rows: productRows,
+            showCheckboxColumn: true,
           )
         );
       },

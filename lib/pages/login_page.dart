@@ -188,7 +188,7 @@ class _LoginPage extends State<LoginPage> {
                             padding: const EdgeInsets.all(8),
                             child: const Center(
                               child: Text(
-                                "©2025 OrderUp. All rights reserved",
+                                "©2025 OrderUp. All rights reserved", 
                                 style: TextStyle(color: Colors.white, fontSize: 12),
                               ),
                             ),
