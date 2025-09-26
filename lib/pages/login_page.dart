@@ -182,19 +182,21 @@ class _LoginPage extends State<LoginPage> {
                           const SizedBox(height: 60),
 
                           // Footer //
-                          Container(
-                            width: double.infinity,
-                            color: const Color(0xFFAE3D33),
-                            padding: const EdgeInsets.all(8),
-                            child: const Center(
-                              child: Text(
-                                "©2025 OrderUp. All rights reserved", 
-                                style: TextStyle(color: Colors.white, fontSize: 12),
-                              ),
-                            ),
-                          ),
+                          
                         ],
                       ),
+                    ),
+                  ),
+                ),
+                bottomSheet: Container(
+                  width: double.infinity,
+                  height: 30,
+                  color: const Color(0xFFAE3D33),
+                  padding: const EdgeInsets.all(8),
+                  child: const Center(
+                    child: Text(
+                      "©2025 OrderUp. All rights reserved", 
+                      style: TextStyle(color: Colors.white, fontSize: 12),
                     ),
                   ),
                 ),
