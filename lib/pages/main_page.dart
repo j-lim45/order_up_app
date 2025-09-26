@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:order_up_app/backend/auth_service.dart';
 import '../backend/database_service.dart';
 import 'package:order_up_app/components/product_container.dart';
 import 'package:order_up_app/pages/navbar_items/home_page.dart';
@@ -95,49 +96,68 @@ class _AppMainPage extends State<AppMainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        // App Bar
-        appBar: AppBar(
-          backgroundColor: AppColors.maroonColor, 
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Image.asset('img/orderuplogo.png', scale: 16,),
-              Text(
-              _appbarText[_selectedNavBarIndex]!,
-              style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.headerColor),
-              ),
-              PopupMenuButton(
-                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                  PopupMenuItem<String>(value: 'Account', child: Text('Account')),
-                  PopupMenuItem<String>(value: 'About', child: Text('About')),
-                  PopupMenuItem<String>(value: 'Log out', child: Text('Log out')),
+    return ValueListenableBuilder(
+      valueListenable: authService, 
+      builder: (context, authService, child) {
+        return StreamBuilder(
+        stream: authService.authStateChanges,
+        builder: (context, snapshot) {
+          return Scaffold(
+            // App Bar
+            appBar: AppBar(
+              backgroundColor: AppColors.maroonColor, 
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Image.asset('img/orderuplogo.png', scale: 16,),
+                  Text(
+                  _appbarText[_selectedNavBarIndex]!,
+                  style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.headerColor),
+                  ),
+                  PopupMenuButton(
+                    itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                      PopupMenuItem<String>(value: 'Account', child: Text('Account')),
+                      PopupMenuItem<String>(value: 'About', child: Text('About')),
+                      PopupMenuItem<String>(value: 'Log out', child: Text('Log out')),
+                    ],
+                    onSelected: (value) async {
+                      if (value=='Log out') {
+                        try {
+                          await authService.signOut();
+                        } catch (e) {
+                          print(e);
+                        }
+                      }
+                    },
+                    icon: Icon(Icons.menu, color: AppColors.pitchColor),
+                  )
                 ],
-                icon: Icon(Icons.menu, color: AppColors.pitchColor),
               )
-            ],
-          )
-        ),
+            ),
 
-        // Pages you can visit from the navbar
-        body: _navBarPages[_selectedNavBarIndex],
+            // Pages you can visit from the navbar
+            body: _navBarPages[_selectedNavBarIndex],
 
-        // Camera page
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          child: Icon(Icons.camera),
-        ),
+            // Camera page
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {},
+              child: Icon(Icons.camera),
+            ),
 
-        // Navbar (Home, Stock, Reports, Menu)
-        bottomNavigationBar: Container(
-          decoration: BoxDecoration(
-            border: Border(top: BorderSide(color: AppColors.maroonColor, width: 2))
-          ),
-          child: BottomNavBar(
-            currentIndex: _selectedNavBarIndex, 
-            onClicked: (int index) {_onClicked(index);}
-          )
-        )
+            // Navbar (Home, Stock, Reports, Menu)
+            bottomNavigationBar: Container(
+              decoration: BoxDecoration(
+                border: Border(top: BorderSide(color: AppColors.maroonColor, width: 2))
+              ),
+              child: BottomNavBar(
+                currentIndex: _selectedNavBarIndex, 
+                onClicked: (int index) {_onClicked(index);}
+              )
+            )
+          );
+        }
       );
+      }
+    );
   }
 }
