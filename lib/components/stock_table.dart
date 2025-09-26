@@ -10,7 +10,6 @@ class StockTable extends StatelessWidget {
 
   const StockTable({super.key, required this.category});
   
-
   @override
   Widget build(BuildContext context) {
     // StreamBuilder is used to update the table everytime data is changed in realtime
