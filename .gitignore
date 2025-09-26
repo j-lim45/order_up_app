@@ -34,9 +34,9 @@ migrate_working_dir/
 /build/
 
 # Unused build files
-/linux
-/macos
-/windows
+/linux/
+/macos/
+/windows/
 
 
 # Symbolication related
