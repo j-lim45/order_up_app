@@ -62,7 +62,7 @@ class StockTable extends StatelessWidget {
               DataColumn(label: Text("QUANTITY"))
             ],
             rows: productRows,
-            showCheckboxColumn: true,
+            showCheckboxColumn: false,
           )
         );
       },
