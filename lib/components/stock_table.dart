@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:order_up_app/components/app_colors.dart';
+import 'package:order_up_app/components/edit_product.dart';
+import 'package:order_up_app/backend/product_class.dart';
+
 
 class StockTable extends StatelessWidget {
   final String category;
@@ -35,13 +38,28 @@ class StockTable extends StatelessWidget {
           final productRow = product.value as Map<Object?, Object?>;
 
           if (productRow['category'].toString()==category) {
+            Product currentProduct =  Product(
+              productId: product.key.toString(),
+              productImgUrl: productRow['image_url'].toString(),
+              productName: productRow['name'].toString(),
+              quantity: int.parse(productRow['quantity'].toString()),
+              price: double.parse(productRow['price'].toString())
+            );
+
             productRows.add(
               DataRow(cells: [
                 DataCell(Text(productRow['name'].toString())),
                 DataCell(Text(productRow['price'].toString())),
                 DataCell(Text(productRow['quantity'].toString()))
               ],
-              onSelectChanged: (value) => {},
+              onSelectChanged: (value) => {
+                showDialog(
+                  context: context, 
+                  builder: (BuildContext context) {
+                    return EditProduct(product: currentProduct);
+                  }
+                )
+              },
             ),
             );
           }
