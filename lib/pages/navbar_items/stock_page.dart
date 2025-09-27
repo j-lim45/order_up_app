@@ -68,7 +68,7 @@ class _StockPage extends State<StockPage> {
       child: Center(
         child: Column(
           children: [
-            Text("Snacks"),
+            Row(children: [Text('Snacks'), FloatingActionButton(onPressed: () {})],),
             StockTable(category: 'snack'),
             Text("Drinks"),
             StockTable(category: 'drink'),

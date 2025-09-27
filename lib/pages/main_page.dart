@@ -21,7 +21,7 @@ class AppMainPage extends StatefulWidget {
 class _AppMainPage extends State<AppMainPage> {
 
   // -------- NAV BAR INDICES -------- //
-  int _selectedNavBarIndex = 0; // Index of the Page on the Bottom Navbar (First page to be shown is always Home page)
+  int _selectedNavBarIndex = 1; // Index of the Page on the Bottom Navbar (First page to be shown is always Home page)
 
   // Used to identify which text to display on the app bar
   final Map<int, String> _appbarText = {
