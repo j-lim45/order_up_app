@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       routes: {'/': (context) => LoginPage()}, // Goes to Login page
       theme: ThemeData(
         scaffoldBackgroundColor: AppColors.pitchColor,
-        canvasColor: AppColors.appBarColor
+        canvasColor: AppColors.navBarColor
       )
     );
   }
