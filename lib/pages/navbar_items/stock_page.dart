@@ -5,6 +5,7 @@ import 'package:order_up_app/components/product_container.dart';
 import 'package:order_up_app/components/app_colors.dart';
 import 'package:order_up_app/backend/product_class.dart';
 import 'package:order_up_app/components/stock_table.dart';
+import 'package:order_up_app/components/add_product.dart';
 
 
 class StockPage extends StatefulWidget {
@@ -62,17 +63,42 @@ class _StockPage extends State<StockPage> {
   }
   // ?????????????????????????? //
 
+  Container tableHeaderContainer(String headerText) {
+    TextStyle tableHeaderStyle = TextStyle(
+      fontSize: 32,
+      fontWeight: FontWeight.bold
+    );
+
+    return Container(
+      padding: EdgeInsets.only(left: 20, right: 20),
+      child:  Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween, 
+        children: [
+          Text(headerText, style: tableHeaderStyle), 
+          FloatingActionButton(
+            onPressed: () {
+              showDialog(context: context, builder: (BuildContext context) {return AddProduct(category: headerText);});
+            }, 
+            backgroundColor: AppColors.maroonColor2, 
+            child: Icon(Icons.add, 
+            color: AppColors.headerColor)
+          )
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Center(
         child: Column(
           children: [
-            Row(children: [Text('Snacks'), FloatingActionButton(onPressed: () {})],),
+            tableHeaderContainer('Snacks'),
             StockTable(category: 'snack'),
-            Text("Drinks"),
+            tableHeaderContainer('Drinks'),
             StockTable(category: 'drink'),
-            Text("Dishes"),
+            tableHeaderContainer('Dishes'),
             StockTable(category: 'dish')
           ],
         )

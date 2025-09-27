@@ -31,9 +31,29 @@ class DatabaseService {
     
     ref.push().set({
     name : {
-        ""
+        "teting"
     }
-  });
+    });
+  }
+
+  Future<void> addProduct({
+    required String name,
+    required double price,
+    required int quantity,
+    required String category,
+    required String imageUrl,
+    required String barcodeNo
+    }) async {
+    DatabaseReference ref = _firebaseDatabase.ref("products");
+    
+    ref.push().set({
+      'name'      : name,
+      'price'     : price,
+      'quantity'  : quantity,
+      'category'  : category,
+      'image_url' : imageUrl,
+      'barcode_num' : barcodeNo
+    });
   }
 
 
