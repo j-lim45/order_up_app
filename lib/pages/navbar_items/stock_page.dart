@@ -75,7 +75,7 @@ class _StockPage extends State<StockPage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween, 
         children: [
           Text(headerText, style: tableHeaderStyle), 
-          FloatingActionButton(
+          FloatingActionButton.small(
             onPressed: () {
               showDialog(context: context, builder: (BuildContext context) {return AddProduct(category: headerText);});
             }, 
