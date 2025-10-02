@@ -29,7 +29,6 @@ class StockTable extends StatelessWidget {
         // Raw json data from products database
         final data = snapshot.data!.snapshot.value as Map<Object?, Object?>;
 
-        // Convert to DataRow list (direct, no model class)
         final List<DataRow> productRows = [];
 
         // Loops through each product in the table to add each attribute data into a DataRow

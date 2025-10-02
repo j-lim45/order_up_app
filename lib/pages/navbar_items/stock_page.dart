@@ -6,6 +6,7 @@ import 'package:order_up_app/components/app_colors.dart';
 import 'package:order_up_app/backend/product_class.dart';
 import 'package:order_up_app/components/stock_table.dart';
 import 'package:order_up_app/components/add_product.dart';
+import 'package:order_up_app/components/search_bar.dart';
 
 
 class StockPage extends StatefulWidget {
@@ -94,6 +95,7 @@ class _StockPage extends State<StockPage> {
       child: Center(
         child: Column(
           children: [
+            StockSearchBar(),
             tableHeaderContainer('Snacks'),
             StockTable(category: 'snack'),
             tableHeaderContainer('Drinks'),
