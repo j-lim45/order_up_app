@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:order_up_app/components/edit_product.dart';
 import 'package:order_up_app/backend/product_class.dart';
 
 
@@ -10,6 +11,20 @@ class StockSearchBar extends StatefulWidget {
 }
 
 class _StockSearchBar extends State<StockSearchBar> {
+
+  Product getProduct({required AsyncSnapshot<DatabaseEvent> snapshot, required chosenKey}) {
+    final data = snapshot.data!.snapshot.value as Map<dynamic, dynamic>;
+
+    Map<dynamic, dynamic> product = data[chosenKey];
+    return Product(
+      productId: chosenKey.toString(),
+      productImgUrl: product['image_url'].toString(),
+      productName: product['name'].toString(),
+      quantity: int.parse(product['quantity'].toString()),
+      price: double.parse(product['price'].toString())
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<DatabaseEvent>(
@@ -70,7 +85,13 @@ class _StockSearchBar extends State<StockSearchBar> {
                 title: Text(entry.value),
                 onTap: () {
                   controller.closeView(entry.value);
-                  print(entry.key);
+                
+                  showDialog(
+                    context: context, 
+                    builder: (BuildContext context) {
+                      return EditProduct(product: getProduct(snapshot: snapshot, chosenKey: entry.key));
+                    }
+                  );
                 }
               );
             }).toList();
