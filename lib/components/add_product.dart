@@ -28,7 +28,7 @@ class _AddProduct extends State<AddProduct> {
     await DatabaseService().addProduct(
       name: productNameController.text, 
       price: double.parse(priceController.text), 
-      quantity: 0, 
+      quantity: 0,
       category: categoryData, 
       imageUrl: imageController.text,
       barcodeNo: barcodeController.text

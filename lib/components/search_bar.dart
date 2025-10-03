@@ -85,7 +85,8 @@ class _StockSearchBar extends State<StockSearchBar> {
                 title: Text(entry.value),
                 onTap: () {
                   controller.closeView(entry.value);
-                
+                  FocusScope.of(context).requestFocus(FocusNode());
+
                   showDialog(
                     context: context, 
                     builder: (BuildContext context) {

@@ -1,4 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:order_up_app/backend/product_class.dart';
 
 class DatabaseService {
   final FirebaseDatabase _firebaseDatabase = FirebaseDatabase.instance;
@@ -26,14 +27,11 @@ class DatabaseService {
     await ref.update(data);
   }
 
-  Future<void> addNewSale({required String name}) async {
+  Future<void> addNewSale({required String id, required int quantityToDeduct}) async {
     DatabaseReference ref = _firebaseDatabase.ref("sales");
-    
-    ref.push().set({
-    name : {
-        "teting"
-    }
-    });
+    Product product = await getProduct(key: id);
+
+    update(path: "products/$id", data: {"quantity": product.quantity-quantityToDeduct});
   }
 
   Future<void> addProduct({
@@ -56,5 +54,17 @@ class DatabaseService {
     });
   }
 
+  Future<Product> getProduct({required String key}) async {
+    DataSnapshot? productSnapshot = await DatabaseService().read(path: "products/${key}");
+    Map<Object?, Object?> productMap = productSnapshot!.value as Map<Object?, Object?>;
 
+    return Product(
+      productId: key, 
+      productName: productMap['name'].toString(), 
+      productImgUrl: productMap['image_url'].toString(), 
+      quantity: int.parse(productMap['quantity'].toString()), 
+      price: double.parse(productMap['price'].toString()),
+      barcode: productMap['barcode_num'].toString() 
+    );
+  }
 }

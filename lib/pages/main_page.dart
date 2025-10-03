@@ -26,6 +26,13 @@ class _AppMainPage extends State<AppMainPage> {
   // -------- NAV BAR INDICES -------- //
   int _selectedNavBarIndex = 1; // Index of the Page on the Bottom Navbar (First page to be shown is always Home page)
 
+  // Invoked when user clicks on a navbar item
+  void _onClicked(int index) {
+    setState(() {
+      _selectedNavBarIndex = index;
+    });
+  }
+
   // Used to identify which text to display on the app bar
   final Map<int, String> _appbarText = {
     0: "Home",
@@ -42,7 +49,9 @@ class _AppMainPage extends State<AppMainPage> {
       BarcodeScanner(),         // 2
       ReportsPage(),            // 3
       MenuPage(),               // 4
-    ];
+  ];
+
+
   // --------------------------------- //
 
   // !!! PLEASE FIX THIS SOON !!! ///
@@ -91,13 +100,6 @@ class _AppMainPage extends State<AppMainPage> {
   }
 
   /// !!! !!! ///
-
-  // Invoked when user clicks on a navbar item
-  void _onClicked(int index) {
-    setState(() {
-      _selectedNavBarIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
