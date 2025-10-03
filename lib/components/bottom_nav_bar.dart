@@ -23,6 +23,10 @@ class BottomNavBar extends StatelessWidget {
               label: "Stock",
             ),
             BottomNavigationBarItem(
+              icon: Icon(Icons.camera),
+              label: "Camera",
+            ),
+            BottomNavigationBarItem(
               icon: Icon(Icons.content_paste),
               label: "Reports",
             ),

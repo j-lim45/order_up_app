@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:order_up_app/backend/auth_service.dart';
 import '../backend/database_service.dart';
 import 'package:order_up_app/components/product_container.dart';
@@ -9,6 +10,8 @@ import 'package:order_up_app/pages/navbar_items/reports_page.dart';
 import 'package:order_up_app/pages/navbar_items/menu_page.dart';
 import 'package:order_up_app/components/bottom_nav_bar.dart';
 import 'package:order_up_app/components/app_colors.dart';
+import 'package:order_up_app/components/barcode_scanner.dart';
+// import 'package:mobile_scanner/mobile_scanner.dart';
 
 // This widget is the first thing a user should see after logging in
 class AppMainPage extends StatefulWidget {
@@ -27,16 +30,18 @@ class _AppMainPage extends State<AppMainPage> {
   final Map<int, String> _appbarText = {
     0: "Home",
     1: "Stock",
-    2: "Reports",
-    3: "Menu"
+    2: "Camera",
+    3: "Reports",
+    4: "Menu",
   };
 
   // Used to identify which widget or page to go to when user clicks on an navbar item
   final List<Widget> _navBarPages = [
       HomePage(),               // 0
       StockPage(),              // 1
-      ReportsPage(),            // 2
-      MenuPage()                // 3
+      BarcodeScanner(),         // 2
+      ReportsPage(),            // 3
+      MenuPage(),               // 4
     ];
   // --------------------------------- //
 
@@ -138,11 +143,11 @@ class _AppMainPage extends State<AppMainPage> {
             // Pages you can visit from the navbar
             body: _navBarPages[_selectedNavBarIndex],
 
-            // Camera page
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {},
-              child: Icon(Icons.camera),
-            ),
+            // Camera page (UNUSED)
+            // floatingActionButton: FloatingActionButton(
+            //   onPressed: () {_onClicked(4);},
+            //   child: Icon(Icons.camera),
+            // ),
 
             // Navbar (Home, Stock, Reports, Menu)
             bottomNavigationBar: Container(
