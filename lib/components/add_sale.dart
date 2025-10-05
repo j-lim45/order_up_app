@@ -137,7 +137,7 @@ class _AddSale extends State<AddSale> {
                       padding: const EdgeInsets.symmetric(vertical: 14),
                     ),
                     onPressed: () {
-                      DatabaseService().addNewSale(id: widget.product.productId, quantityToDeduct: addSaleQuantity);
+                      DatabaseService().addNewSale(id: widget.product.productId, quantityToDeduct: addSaleQuantity, unitPrice: widget.product.price);
                       Navigator.pop(context);
                     },
                     child: const Text(

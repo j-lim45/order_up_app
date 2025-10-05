@@ -27,11 +27,17 @@ class DatabaseService {
     await ref.update(data);
   }
 
-  Future<void> addNewSale({required String id, required int quantityToDeduct}) async {
-    DatabaseReference ref = _firebaseDatabase.ref("sales");
+  Future<void> addNewSale({required String id, required int quantityToDeduct, required unitPrice}) async {
+    DatabaseReference salesRef = _firebaseDatabase.ref("sales");
     Product product = await getProduct(key: id);
 
     update(path: "products/$id", data: {"quantity": product.quantity-quantityToDeduct});
+    salesRef.push().set({
+      'product_id': id,
+      'quantity'  : quantityToDeduct,
+      'timestamp'  : ServerValue.timestamp,
+      'unitPrice'  : unitPrice,
+    });
   }
 
   Future<void> addProduct({
