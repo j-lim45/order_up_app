@@ -70,7 +70,8 @@ class DatabaseService {
       productImgUrl: productMap['image_url'].toString(), 
       quantity: int.parse(productMap['quantity'].toString()), 
       price: double.parse(productMap['price'].toString()),
-      barcode: productMap['barcode_num'].toString() 
+      barcode: productMap['barcode_num'].toString(),
+      category: productMap['category'].toString()
     );
   }
 }

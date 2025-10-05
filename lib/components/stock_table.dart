@@ -42,20 +42,23 @@ class StockTable extends StatelessWidget {
               productImgUrl: productRow['image_url'].toString(),
               productName: productRow['name'].toString(),
               quantity: int.parse(productRow['quantity'].toString()),
-              price: double.parse(productRow['price'].toString())
+              price: double.parse(productRow['price'].toString()),
+              category: productRow['category'].toString(),
+              barcode: productRow['barcode_num'].toString()
             );
 
+            
             productRows.add(
               DataRow(cells: [
                 DataCell(Text(productRow['name'].toString())),
                 DataCell(Text(productRow['price'].toString())),
-                DataCell(Text(productRow['quantity'].toString()))
+                DataCell(Text(productRow['quantity'].toString(), style: TextStyle(color: productRow['quantity']==0 ? Colors.red : Colors.black),))
               ],
               onSelectChanged: (value) => {
                 showDialog(
                   context: context, 
                   builder: (BuildContext context) {
-                    return AddSale(product: currentProduct);
+                    return EditProduct(product: currentProduct);
                   }
                 )
               },

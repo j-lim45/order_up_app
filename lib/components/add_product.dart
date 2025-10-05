@@ -1,9 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:order_up_app/backend/database_service.dart';
 
+const List<String> categories = ['Snack', "Drink", "Dish"];
+
 class AddProduct extends StatefulWidget {
-  final String category;
-  const AddProduct({super.key, required this.category});
+  const AddProduct({super.key});
 
   @override
   State<AddProduct> createState() => _AddProduct();
@@ -14,31 +16,32 @@ class _AddProduct extends State<AddProduct> {
   TextEditingController priceController = TextEditingController();
   TextEditingController imageController = TextEditingController();
   TextEditingController barcodeController = TextEditingController();
+  String categoryPseudoController = categories.first;
 
   onClickedAddProduct() async {
+    String disallowedChars = "@#{};\'\"";
+    
     // Please add validation soon.
-    // await DatabaseService().create(path: 'products', data: );
-    String categoryData;
-
-    if (widget.category=="Snacks")      categoryData = 'snack';
-    else if (widget.category=='Drinks') categoryData = 'drink';
-    else if (widget.category=='Dishes') categoryData = 'dish';
-    else                                categoryData = 'null';
-
     await DatabaseService().addProduct(
       name: productNameController.text, 
       price: double.parse(priceController.text), 
       quantity: 0,
-      category: categoryData, 
+      category: categoryPseudoController.toLowerCase(), 
       imageUrl: imageController.text,
       barcodeNo: barcodeController.text
       );
   }
 
+  void changedCategory(String? newValue) {
+    setState(() {
+      categoryPseudoController = newValue!;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Adds New ${widget.category}'),
+      title: Text('Add New Product'),
       content: SizedBox(
         width: 300,
         height: 450,
@@ -69,7 +72,16 @@ class _AddProduct extends State<AddProduct> {
               ),
             ),
 
+            DropdownButton<String>(
+              value: categoryPseudoController,
+              items: categories.map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(value: value, child: Text(value));
+            }).toList(),
+              onChanged: (String? value) {changedCategory(value);},
+            ),
+
             TextField(
+              inputFormatters: [],
               controller: barcodeController,
               decoration: InputDecoration(
                 labelText: 'Barcode Number (Optional)',

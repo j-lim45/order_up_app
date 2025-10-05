@@ -19,8 +19,7 @@ class _StockPage extends State<StockPage> {
 
   Container tableHeaderContainer(String headerText) {
     TextStyle tableHeaderStyle = TextStyle(
-      fontSize: 32,
-      fontWeight: FontWeight.bold
+
     );
 
     return Container(
@@ -31,7 +30,7 @@ class _StockPage extends State<StockPage> {
           Text(headerText, style: tableHeaderStyle), 
           FloatingActionButton.small(
             onPressed: () {
-              showDialog(context: context, builder: (BuildContext context) {return AddProduct(category: headerText);});
+              showDialog(context: context, builder: (BuildContext context) {return AddProduct();});
             }, 
             backgroundColor: AppColors.maroonColor2, 
             child: Icon(Icons.add, 
@@ -48,12 +47,31 @@ class _StockPage extends State<StockPage> {
       child: Center(
         child: Column(
           children: [
-            StockSearchBar(),
-            tableHeaderContainer('Snacks'),
+            Container(
+              padding: EdgeInsets.only(top: 10, bottom: 25),
+              child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+              StockSearchBar(),
+              FloatingActionButton.small(
+                onPressed: () {
+                  showDialog(context: context, builder: (BuildContext context) {return AddProduct();});
+                }, 
+                backgroundColor: AppColors.maroonColor2, 
+                child: Icon(Icons.add, 
+                color: AppColors.headerColor)
+              )
+            ],),
+            ),
+            
+            Text('Snacks', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+            
             StockTable(category: 'snack'),
-            tableHeaderContainer('Drinks'),
+            Text('Drinks', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+            
             StockTable(category: 'drink'),
-            tableHeaderContainer('Dishes'),
+            Text('Dishes', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+            
             StockTable(category: 'dish')
           ],
         )

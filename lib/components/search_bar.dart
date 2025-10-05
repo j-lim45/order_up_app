@@ -14,6 +14,7 @@ class StockSearchBar extends StatefulWidget {
 class _StockSearchBar extends State<StockSearchBar> {
 
   Product getProduct({required AsyncSnapshot<DatabaseEvent> snapshot, required chosenKey}) {
+
     final data = snapshot.data!.snapshot.value as Map<dynamic, dynamic>;
 
     Map<dynamic, dynamic> product = data[chosenKey];
@@ -22,7 +23,9 @@ class _StockSearchBar extends State<StockSearchBar> {
       productImgUrl: product['image_url'].toString(),
       productName: product['name'].toString(),
       quantity: int.parse(product['quantity'].toString()),
-      price: double.parse(product['price'].toString())
+      price: double.parse(product['price'].toString()),
+      category: product['category'].toString(),
+      barcode: product['barcode'].toString()
     );
   }
 
@@ -93,6 +96,8 @@ class _StockSearchBar extends State<StockSearchBar> {
                   showDialog(
                     context: context, 
                     builder: (BuildContext context) {
+
+                      print("Snapshot: (${snapshot.data})");
                       return EditProduct(product: getProduct(snapshot: snapshot, chosenKey: entry.key));
                     }
                   );
