@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:order_up_app/backend/auth_service.dart';
+import 'package:order_up_app/pages/burger/about_page.dart';
 import '../backend/database_service.dart';
 import 'package:order_up_app/components/product_container.dart';
 import 'package:order_up_app/pages/navbar_items/home_page.dart';
@@ -128,13 +129,20 @@ class _AppMainPage extends State<AppMainPage> {
                       PopupMenuItem<String>(value: 'Log out', child: Text('Log out')),
                     ],
                     onSelected: (value) async {
-                      if (value=='Log out') {
+                      if (value=='About') {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (context) => const AboutPage(),
+                          ),
+                        );
+                      } else if (value=='Log out') {
                         try {
                           await authService.signOut();
                         } catch (e) {
                           print(e);
                         }
-                      }
+                      } 
                     },
                     icon: Icon(Icons.menu, color: AppColors.pitchColor),
                   )
