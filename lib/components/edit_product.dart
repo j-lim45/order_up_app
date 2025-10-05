@@ -12,7 +12,7 @@ class EditProduct extends StatefulWidget {
   // final int stock;
   final Product product;
 
-  EditProduct({
+  const EditProduct({
     super.key,
     required this.product
   });

@@ -7,6 +7,7 @@ import 'package:order_up_app/backend/product_class.dart';
 class StockSearchBar extends StatefulWidget {
   const StockSearchBar({super.key});
 
+  @override
   State<StockSearchBar> createState() => _StockSearchBar();
 }
 
@@ -52,6 +53,8 @@ class _StockSearchBar extends State<StockSearchBar> {
           builder: (BuildContext context, SearchController controller) {
             return SearchBar(
                 controller: controller,
+                hintText: "Search Product",
+                constraints: BoxConstraints.expand(width: 320, height: 48),
                 padding: const WidgetStatePropertyAll<EdgeInsets>(
                   EdgeInsets.symmetric(horizontal: 20.0),
                 ),
@@ -97,17 +100,7 @@ class _StockSearchBar extends State<StockSearchBar> {
               );
             }).toList();
 
-            // return List<ListTile>.generate(5, (int index) {
-            //   final String item = 'item $index';
-            //   return ListTile(
-            //     title: Text(item),
-            //     onTap: () {
-            //       setState(() {
-            //         controller.closeView(item);
-            //       });
-            //     },
-            //   );
-            // });
+
           },
         );
       }
