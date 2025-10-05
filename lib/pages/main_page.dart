@@ -4,7 +4,6 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:order_up_app/backend/auth_service.dart';
 import 'package:order_up_app/pages/burger/about_page.dart';
 import '../backend/database_service.dart';
-import 'package:order_up_app/components/product_container.dart';
 import 'package:order_up_app/pages/navbar_items/home_page.dart';
 import 'package:order_up_app/pages/navbar_items/stock_page.dart';
 import 'package:order_up_app/pages/navbar_items/reports_page.dart';
@@ -51,56 +50,6 @@ class _AppMainPage extends State<AppMainPage> {
       ReportsPage(),            // 3
       MenuPage(),               // 4
   ];
-
-
-  // --------------------------------- //
-
-  // !!! PLEASE FIX THIS SOON !!! ///
-  Future<List<Widget>> getContainerList() async {
-    List productIdList = await getProductIdList;
-    List<Widget> containerList = [];
-
-    // gets attributes of products and places them in each container widget
-    for (final productId in productIdList) {
-      String name = ((await DatabaseService().read(
-        path: 'products/$productId/name',
-      ))?.value).toString();
-      String imageUrl = ((await DatabaseService().read(
-        path: 'products/$productId/image_url',
-      ))?.value).toString();
-      double price = double.parse(
-        (await DatabaseService().read(path: 'products/$productId/name'))?.value
-            as String,
-      );
-      String quantity = ((await DatabaseService().read(
-        path: 'products/$productId/quantity',
-      ))?.value).toString();
-
-      containerList.add(
-        ProductContainer(
-          productId: productId,
-          name: name,
-          imgUrl: imageUrl,
-          price: price,
-          quantity: quantity,
-        ),
-      );
-    }
-
-    return containerList;
-  }
-
-  Future<List> get getProductIdList async {
-    DataSnapshot? snapshot = await DatabaseService().read(path: 'products');
-
-    final data = snapshot?.value as Map<Object?, Object?>;
-    List<String> productIdList = data.keys
-        .map((keys) => keys.toString())
-        .toList();
-    return productIdList;
-  }
-
-  /// !!! !!! ///
 
   @override
   Widget build(BuildContext context) {
@@ -152,12 +101,6 @@ class _AppMainPage extends State<AppMainPage> {
 
             // Pages you can visit from the navbar
             body: _navBarPages[_selectedNavBarIndex],
-
-            // Camera page (UNUSED)
-            // floatingActionButton: FloatingActionButton(
-            //   onPressed: () {_onClicked(4);},
-            //   child: Icon(Icons.camera),
-            // ),
 
             // Navbar (Home, Stock, Reports, Menu)
             bottomNavigationBar: Container(
