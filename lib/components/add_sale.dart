@@ -45,7 +45,7 @@ class _AddSale extends State<AddSale> {
               Container(
                 width: 200, height: 200,
                 decoration: BoxDecoration(color: AppColors.greyContainer, borderRadius: BorderRadius.circular(16)),
-                child: Image.network(
+                child: widget.product.productImgUrl != "" ? Image.network(
                   widget.product.productImgUrl,
                   height: 120,
                   width: 120,
@@ -62,7 +62,7 @@ class _AddSale extends State<AddSale> {
                       ),
                     );
                   },
-                )
+                ) : Image.asset('img/orderuplogo.png', width: 120, height: 120,)
               ),
 
               Text(widget.product.productName, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),

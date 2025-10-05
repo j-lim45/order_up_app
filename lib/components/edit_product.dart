@@ -4,12 +4,6 @@ import 'package:order_up_app/components/app_colors.dart';
 import 'package:order_up_app/backend/product_class.dart';
 
 class EditProduct extends StatefulWidget {
-  // final String title;
-  // final String imageUrl;
-  // final String barcode;
-  // final String category;
-  // String price; // 👈 mutable so we can update it
-  // final int stock;
   final Product product;
 
   const EditProduct({
@@ -55,28 +49,18 @@ class _EditProduct extends State<EditProduct> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Top row
-                Row(
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back,
-                          color: Color.fromARGB(255, 161, 24, 29)),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                    const SizedBox(width: 4),
-                    Text(
+                Container(
+                  padding: EdgeInsets.only(bottom: 10),
+                  child: Center(
+                    child: Text(
                       widget.product.productName,
                       style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ],
+                        fontSize: 28, fontWeight: FontWeight.bold),
+                    )
+                  ),
                 ),
-                const SizedBox(height: 10),
-
                 // Product Image
-                Image.network(
+                widget.product.productImgUrl != "" ? Image.network(
                   widget.product.productImgUrl,
                   height: 120,
                   width: 120,
@@ -93,7 +77,7 @@ class _EditProduct extends State<EditProduct> {
                       ),
                     );
                   },
-                ),
+                ) : Image.asset('img/orderuplogo.png', width: 120, height: 120,),
 
                 const SizedBox(height: 10),
 
@@ -103,7 +87,7 @@ class _EditProduct extends State<EditProduct> {
                   child: Row(
                     children: [
                       const Text("Barcode: ", style: TextStyle(fontSize: 14)),
-                      Text(widget.product.barcode != null ? widget.product.barcode! : "null",
+                      Text(widget.product.barcode != "" ? widget.product.barcode! : "N/A",
                           style: const TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold)),
                     ],
@@ -114,7 +98,7 @@ class _EditProduct extends State<EditProduct> {
                   child: Row(
                     children: [
                       const Text("Category: ", style: TextStyle(fontSize: 14)),
-                      Text("Some category",
+                      Text(widget.product.category,
                           style: const TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold)),
                     ],
