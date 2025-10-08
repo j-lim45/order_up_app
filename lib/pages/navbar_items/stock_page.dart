@@ -65,13 +65,12 @@ class _StockPage extends State<StockPage> {
             ),
             
             Text('Snacks', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
-            
             StockTable(category: 'snack'),
+
             Text('Drinks', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
-            
             StockTable(category: 'drink'),
-            Text('Dishes', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
             
+            Text('Dishes', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
             StockTable(category: 'dish')
           ],
         )
