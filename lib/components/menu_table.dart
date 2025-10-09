@@ -58,7 +58,7 @@ class MenuTable extends StatelessWidget {
                     currentProduct.productImgUrl.toString(),
                     width: 40, height: 40
                   ) : Image.asset('img/orderuplogo.png'),
-                  title: Text(currentProduct.productName),
+                  title: Text(currentProduct.productName, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
                   onTap: () => showDialog(
                     context: context, 
                     builder: (BuildContext context) {

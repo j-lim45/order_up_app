@@ -1,5 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:order_up_app/backend/product_class.dart';
+import 'package:order_up_app/backend/sale_class.dart';
 
 class DatabaseService {
   final FirebaseDatabase _firebaseDatabase = FirebaseDatabase.instance;
@@ -73,5 +74,34 @@ class DatabaseService {
       barcode: productMap['barcode_num'].toString(),
       category: productMap['category'].toString()
     );
+
+    
+  }
+
+  Future<List<Sale>> getFirstSale() async {
+    DataSnapshot? salesSnapshot = await DatabaseService().read(path: "sales");
+    Map<Object?, Object?> salesMap = salesSnapshot!.value as Map<Object?, Object?>;
+
+    // int unixMs = 1759430400000; 
+    // DateTime date = DateTime.fromMillisecondsSinceEpoch(unixMs);
+
+    // DateTime firstDayOfWeek = date.subtract(Duration(days: date.weekday - 1));
+
+    
+    List<Sale> salesList = [];
+    for (var sale in salesMap.entries) {
+
+      final saleValue = sale.value as Map?;
+      salesList.add(Sale(
+        saleId: sale.key.toString(),
+        productId: (saleValue?['product_id'].toString())!,
+        quantity: int.parse((saleValue?['quantity'].toString())!),
+        dateTime: DateTime.fromMillisecondsSinceEpoch(int.parse((saleValue?['timestamp'].toString())!)),
+        unitPrice: double.parse((saleValue?['unitPrice'].toString())!)
+      ));
+    }
+
+
+    return salesList;
   }
 }
