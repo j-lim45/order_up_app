@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:order_up_app/backend/database_service.dart';
-import 'package:order_up_app/components/add_sale.dart';
+import 'package:order_up_app/components/menu/add_sale.dart';
 import 'package:order_up_app/backend/product_class.dart';
 
 class BarcodeScanner extends StatefulWidget {

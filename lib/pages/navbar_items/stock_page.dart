@@ -3,9 +3,9 @@ import 'package:firebase_database/firebase_database.dart';
 import '../../backend/database_service.dart';
 import 'package:order_up_app/components/app_colors.dart';
 import 'package:order_up_app/backend/product_class.dart';
-import 'package:order_up_app/components/stock_table.dart';
-import 'package:order_up_app/components/add_product.dart';
-import 'package:order_up_app/components/search_bar.dart';
+import 'package:order_up_app/components/stock/stock_table.dart';
+import 'package:order_up_app/components/stock/add_product.dart';
+import 'package:order_up_app/components/stock/search_bar.dart';
 
 
 class StockPage extends StatefulWidget {
