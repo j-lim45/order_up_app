@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:order_up_app/components/app_colors.dart';
+import 'package:order_up_app/components/misc/app_colors.dart';
 import 'package:order_up_app/backend/product_class.dart';
 
 class EditProduct extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:order_up_app/components/app_colors.dart';
+import 'package:order_up_app/components/misc/app_colors.dart';
 import 'package:order_up_app/backend/sale_class.dart';
 import 'package:order_up_app/components/reports/sales_table.dart';
 

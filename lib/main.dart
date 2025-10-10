@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'pages/login_page.dart';
-import 'components/app_colors.dart';
+import 'components/misc/app_colors.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Initializes binding before running Firebase
