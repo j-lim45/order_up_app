@@ -3,16 +3,15 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:order_up_app/components/app_colors.dart';
 import 'package:order_up_app/backend/product_class.dart';
 import 'package:order_up_app/backend/sale_class.dart';
-import 'package:order_up_app/components/week_report_card.dart';
+import 'package:order_up_app/components/reports/week_report_card.dart';
 
 
-class SaleTable extends StatelessWidget {
+class WeeklyReportsColumn extends StatelessWidget {
 
-  const SaleTable({super.key});
+  const WeeklyReportsColumn({super.key});
 
   Future<List<Widget>> getList() async {
     List<Widget> test = [];
-
 
     return test;
   }

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:order_up_app/components/app_colors.dart';
 import 'package:order_up_app/backend/sale_class.dart';
+import 'package:order_up_app/components/reports/sales_table.dart';
+
+
 
 class WeekReportPage extends StatelessWidget {
   final List<Sale> theList;
@@ -13,20 +16,13 @@ class WeekReportPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.maroonColor, foregroundColor: AppColors.whiteColor,
       ),
-      body: Text("Report")
-    );
-  }
-}
-
-class SalesTable extends StatelessWidget {
-  final List<Sale> theList;
-
-  const SalesTable({super.key, required this.theList});
-  @override
-  Widget build(BuildContext context) {
-    return DataTable(
-      columns: [DataColumn(label: Text("Product")), DataColumn(label: Text("Date")), DataColumn(label: Text("Quantity"))],
-      rows: [],
+      body: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: SalesTable(theList: theList),
+        )
+      )
     );
   }
 }
