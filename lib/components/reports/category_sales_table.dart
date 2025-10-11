@@ -31,8 +31,6 @@ class CategorySalesTable extends StatelessWidget {
       categoryArray['total'][1] += sale.quantity*sale.unitPrice;
     }
 
-    List categoryNames = ['Snack', 'Drink', 'Dish'];
-
     for (var i in categoryArray.entries) {
       tableRows.add(DataRow(
         cells: [

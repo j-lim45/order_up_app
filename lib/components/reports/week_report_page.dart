@@ -11,9 +11,15 @@ class WeekReportPage extends StatelessWidget {
   final List<Sale> theList;
   final DateTime startDateWeek;
 
+
+
+
   const WeekReportPage({super.key, required this.theList, required this.startDateWeek});
   @override
   Widget build(BuildContext context) {
+    final DateTime endDateWeek = startDateWeek.add(Duration(days: 6));
+    
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.maroonColor, foregroundColor: AppColors.whiteColor,
@@ -22,14 +28,58 @@ class WeekReportPage extends StatelessWidget {
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
-            Text('Category Sales Breakdown'),
-            SingleChildScrollView(scrollDirection: Axis.horizontal, child: CategorySalesTable(theList: theList)),
-            Text('Best Sellers'),
-            SingleChildScrollView(scrollDirection: Axis.horizontal, child: BestSellerTable(theList: theList)),
-            Text('All Week Sales'),
-            SingleChildScrollView(scrollDirection: Axis.horizontal, child: SalesTable(theList: theList))
+            Text(
+              "Weekly Report  ",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 32
+              )
+            ),
+            Text(
+              "(${startDateWeek.month}/${startDateWeek.day}/${startDateWeek.year}-${endDateWeek.month}/${endDateWeek.day}/${endDateWeek.year})",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16
+              )
+            ),
+            TableContainer(headerText: 'Category Sales Breakdown', table: CategorySalesTable(theList: theList)),
+            TableContainer(headerText: 'Best Sellers', table: BestSellerTable(theList: theList)),
+            TableContainer(headerText: 'All Week Sales', table: SalesTable(theList: theList))
           ],
         )
+      )
+    );
+  }
+}
+
+class TableContainer extends StatelessWidget {
+  final String headerText;
+  final Widget table;
+
+  const TableContainer({super.key, required this.headerText, required this.table});
+  
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 8, bottom: 8),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8)   
+      ),
+      child: Column(
+        children: [
+          Text(
+            headerText,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 24
+            ),
+          ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: table
+          )
+        ],
       )
     );
   }

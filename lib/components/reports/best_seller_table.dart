@@ -27,8 +27,12 @@ class BestSellerTable extends StatelessWidget {
       };
     }
 
+    // Sorts by revenue
+    final sortedEntries = productMap.entries.toList()
+    ..sort((a, b) => a.value['sales'].compareTo(b.value['sales']));
+    final sortedData = Map.fromEntries(sortedEntries.reversed);
 
-    for (var i in productMap.entries) {
+    for (var i in sortedData.entries) {
       tableRows.add(DataRow(
         cells: [
           DataCell(Text(i.value['productName'], style: textStyle)),
