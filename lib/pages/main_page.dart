@@ -3,6 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:order_up_app/backend/auth_service.dart';
 import 'package:order_up_app/pages/burger/about_page.dart';
+import 'package:order_up_app/pages/burger/account_page.dart';
 import '../backend/database_service.dart';
 import 'package:order_up_app/pages/navbar_items/home_page.dart';
 import 'package:order_up_app/pages/navbar_items/stock_page.dart';
@@ -24,7 +25,7 @@ class AppMainPage extends StatefulWidget {
 class _AppMainPage extends State<AppMainPage> {
 
   // -------- NAV BAR INDICES -------- //
-  int _selectedNavBarIndex = 3; // Index of the Page on the Bottom Navbar (First page to be shown is always Home page)
+  int _selectedNavBarIndex = 1; // Index of the Page on the Bottom Navbar (First page to be shown is always Home page)
 
   // Invoked when user clicks on a navbar item
   void _onClicked(int index) {
@@ -83,6 +84,13 @@ class _AppMainPage extends State<AppMainPage> {
                           context,
                           MaterialPageRoute<void>(
                             builder: (context) => const AboutPage(),
+                          ),
+                        );
+                      } else if (value=='Account') {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (context) => const AccountPage(),
                           ),
                         );
                       } else if (value=='Log out') {

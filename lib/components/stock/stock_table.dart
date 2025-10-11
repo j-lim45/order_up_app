@@ -55,12 +55,16 @@ class StockTable extends StatelessWidget {
                 DataCell(Text(productRow['quantity'].toString(), style: TextStyle(color: productRow['quantity']==0 ? Colors.red : Colors.black),))
               ],
               onSelectChanged: (value) => {
-                showDialog(
-                  context: context, 
-                  builder: (BuildContext context) {
-                    return EditProduct(product: currentProduct);
-                  }
-                )
+                Navigator.push(context, MaterialPageRoute(builder: (context) => 
+                  EditProduct(product: currentProduct)
+                ))
+
+                // showDialog(
+                //   context: context, 
+                //   builder: (BuildContext context) {
+                //     return EditProduct(product: currentProduct);
+                //   }
+                // )
               },
             ),
             );

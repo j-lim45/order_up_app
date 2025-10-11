@@ -28,6 +28,34 @@ class DatabaseService {
     await ref.update(data);
   }
 
+  Future<String> getUsername({required String uid}) async {
+    DataSnapshot? userSnapshot = await DatabaseService().read(path: "users/$uid/name");
+
+    String userName = userSnapshot!.value.toString();
+    return userName;
+  }
+
+  // -------------------------- UPDATE ------------------------------------- //
+  Future<void> updateName({required String id, required String name}) {
+    update(path: "products/$id", data: {"name": name});
+    return Future.value();
+  }
+
+  Future<void> updateProductPrice({required String id, required double price}) {
+    update(path: "products/$id", data: {"price": price});
+    return Future.value();
+  }
+
+  Future<void> updateBarcode({required String id, required String barcode}) {
+    update(path: "products/$id", data: {"barcode_num": barcode});
+    return Future.value();
+  }
+
+  Future<void> updateCategory({required String id, required String category}) {
+    update(path: "products/$id", data: {"category": category});
+    return Future.value();
+  }
+
   Future<void> addNewSale({required String id, required int quantityToDeduct, required unitPrice}) async {
     DatabaseReference salesRef = _firebaseDatabase.ref("sales");
     Product product = await getProduct(key: id);
@@ -39,6 +67,12 @@ class DatabaseService {
       'timestamp'  : ServerValue.timestamp,
       'unitPrice'  : unitPrice,
     });
+  }
+
+  Future<void> addStock({required String id, required int quantityToAdd}) async {
+    Product product = await getProduct(key: id);
+
+    update(path: "products/$id", data: {"quantity": product.quantity+quantityToAdd});
   }
 
   Future<void> addProduct({
@@ -74,8 +108,6 @@ class DatabaseService {
       barcode: productMap['barcode_num'].toString(),
       category: productMap['category'].toString()
     );
-
-    
   }
 
   Future<List<Sale>> getFirstSale() async {

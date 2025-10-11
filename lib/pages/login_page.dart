@@ -4,6 +4,7 @@ import 'package:order_up_app/backend/auth_service.dart';
 import 'package:order_up_app/pages/loading_screen.dart';
 import 'package:order_up_app/pages/main_page.dart';
 import 'package:order_up_app/pages/forgot_password.dart';
+import 'package:order_up_app/pages/password.dart';
 import 'navbar_items/home_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -140,7 +141,7 @@ class _LoginPage extends State<LoginPage> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => const ForgotPassword(),
+                                          builder: (context) => const Password(),
                                         ),
                                       );
                                     },
