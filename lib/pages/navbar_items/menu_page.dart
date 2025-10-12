@@ -22,8 +22,6 @@ class _MenuPage extends State<MenuPage> {
       child: Center(
         child: Column(
           children: [
-            
-            
             Text('Snacks', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
             MenuTable(category: 'snack'),
 

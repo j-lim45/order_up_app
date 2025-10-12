@@ -13,11 +13,22 @@ class AccountPage extends StatefulWidget {
 class _AccountPage extends State<AccountPage> {
   final user = FirebaseAuth.instance.currentUser;
 
-
-
-
   @override
   Widget build(BuildContext context) {
+    final auth = FirebaseAuth.instance;
+
+    Future<void> clickedSendEmail() async {
+      try {
+        await auth.sendPasswordResetEmail(email: user!.email!);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Password reset email sent!')),
+        );
+      } on FirebaseAuthException catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.message ?? 'Error sending reset email')),
+        );
+      }
+    }
 
     return FutureBuilder(future: DatabaseService().getUsername(uid: (user?.uid)!), builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -91,7 +102,27 @@ class _AccountPage extends State<AccountPage> {
                               ],
                             ),
 
-                        
+                            Container(
+                              margin: EdgeInsets.only(top: 42, bottom: 42),
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color.fromARGB(255, 161, 24, 29),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30)),
+                                  padding: const EdgeInsets.symmetric(vertical: 14),
+                                ),
+                                onPressed: clickedSendEmail,
+                                child: const Text(
+                                  "Reset Password",
+                                  style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                              ),
+                            ),
+
                             Image.network('https://www.bworldonline.com/wp-content/uploads/2025/02/312m-BingoPlus-KV-NCR_Print-Ad_Business-World_29.7x27cm_CMYK-OL.jpg')                      
                           ],
                         ),

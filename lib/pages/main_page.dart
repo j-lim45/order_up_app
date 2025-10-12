@@ -25,7 +25,7 @@ class AppMainPage extends StatefulWidget {
 class _AppMainPage extends State<AppMainPage> {
 
   // -------- NAV BAR INDICES -------- //
-  int _selectedNavBarIndex = 1; // Index of the Page on the Bottom Navbar (First page to be shown is always Home page)
+  int _selectedNavBarIndex = 0; // Index of the Page on the Bottom Navbar (First page to be shown is always Home page)
 
   // Invoked when user clicks on a navbar item
   void _onClicked(int index) {
@@ -97,7 +97,7 @@ class _AppMainPage extends State<AppMainPage> {
                         try {
                           await authService.signOut();
                         } catch (e) {
-                          print(e);
+                          return;
                         }
                       } 
                     },

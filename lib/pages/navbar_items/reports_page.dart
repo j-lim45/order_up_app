@@ -17,7 +17,9 @@ class _ReportsPage extends State<ReportsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: WeeklyReportsColumn()
+      body: SingleChildScrollView(
+        child: WeeklyReportsColumn()
+      )
     );
   }
 }

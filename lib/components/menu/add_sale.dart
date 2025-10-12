@@ -50,6 +50,9 @@ class _AddSale extends State<AddSale> {
                   height: 120,
                   width: 120,
                   fit: BoxFit.fill,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Image.asset('img/orderuplogo.png', fit: BoxFit.cover);
+                  },
                   loadingBuilder: (BuildContext context, Widget child,
                       ImageChunkEvent? loadingProgress) {
                     if (loadingProgress == null) return child;

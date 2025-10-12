@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import '../../backend/database_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:order_up_app/pages/navbar_items/home_page.dart';
 import 'package:order_up_app/components/misc/bottom_nav_bar.dart';
+import 'package:order_up_app/components/home/best_sellers_card.dart';
+import 'package:order_up_app/components/home/daily_dashboard.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,8 +18,44 @@ class _HomePage extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Text("Home Page")
+    return FutureBuilder(
+      future: DatabaseService().getUsername(uid: (FirebaseAuth.instance.currentUser?.uid)!), 
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        }
+        if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        }
+
+        return Scaffold(
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 12),
+                  height: 64,
+                  child: Text(
+                    "Hello, ${snapshot.data}!",
+                    style: TextStyle(
+                      fontSize: 48,
+                      fontWeight: FontWeight.bold
+                    )
+                  ),
+                ),
+                Center(
+                  child: Text('Best Sellers', 
+                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.w600)
+                  )
+                ),
+                BestSellerCard(),
+                DailyDashboard()
+              ],
+            )
+          )
+        );
+      }
     );
   }
 }

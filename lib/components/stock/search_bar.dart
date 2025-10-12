@@ -42,6 +42,7 @@ class _StockSearchBar extends State<StockSearchBar> {
         }
 
         // Raw json data from products database
+        print(snapshot.data!.snapshot.value);
         final data = snapshot.data!.snapshot.value as Map<Object?, Object?>;
 
         Map<String, String> searchList = {};

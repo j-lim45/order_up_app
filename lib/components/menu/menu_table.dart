@@ -55,6 +55,9 @@ class MenuTable extends StatelessWidget {
                 child: ListTile(
                   leading: currentProduct.productImgUrl.toString() != "" ? 
                   Image.network(
+                    errorBuilder: (context, error, stackTrace) {
+                      return Image.asset('img/orderuplogo.png', fit: BoxFit.cover);
+                    },
                     currentProduct.productImgUrl.toString(),
                     width: 40, height: 40
                   ) : Image.asset('img/orderuplogo.png'),

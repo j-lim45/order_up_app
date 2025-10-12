@@ -41,6 +41,11 @@ class DatabaseService {
     return Future.value();
   }
 
+  Future<void> updateImage({required String id, required String imageLink}) {
+    update(path: "products/$id", data: {"image_url": imageLink});
+    return Future.value();
+  }
+
   Future<void> updateProductPrice({required String id, required double price}) {
     update(path: "products/$id", data: {"price": price});
     return Future.value();
