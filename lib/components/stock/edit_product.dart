@@ -19,6 +19,15 @@ class EditProduct extends StatefulWidget {
 class _EditProduct extends State<EditProduct> {
   int quantity = 0;
 
+  void snackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: Duration(seconds: 2),
+      ),
+    );
+}
+
   // Editing Controllers
   bool isEditingName = false;
   late TextEditingController nameController;
@@ -47,6 +56,16 @@ class _EditProduct extends State<EditProduct> {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle attributeTextStyle = TextStyle(
+      fontSize: 24
+    );
+
+    BoxDecoration notEditingDecoration = BoxDecoration(
+      color: const Color.fromARGB(255, 247, 230, 230), 
+      border: BoxBorder.all(width: 1), 
+      borderRadius: BorderRadius.circular(8)
+    );
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.maroonColor, foregroundColor: AppColors.whiteColor,
@@ -77,10 +96,11 @@ class _EditProduct extends State<EditProduct> {
           // PRODUCT NAME
           Row(
             children: [
-              Text("Name: "),
+              Text("Name: ", style: attributeTextStyle),
               isEditingName
-              ? SizedBox(
-                  width: 300,
+              ? Container(
+                  decoration: BoxDecoration(color: const Color.fromARGB(255, 224, 224, 224)),
+                  width: 200,
                   child: TextField(
                     controller: nameController,
                     decoration: const InputDecoration(
@@ -90,10 +110,15 @@ class _EditProduct extends State<EditProduct> {
                     ),
                   ),
                 )
-              : Text(
-                widget.product.productName,
-                style: const TextStyle(
-                    fontSize: 16, fontWeight: FontWeight.bold),
+              : Container(
+                  decoration: notEditingDecoration,
+                  padding: EdgeInsets.all(9),
+                  width: 200,
+                  child: Text(
+                  widget.product.productName,
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
+                ),
               ),
 
               IconButton(
@@ -103,14 +128,9 @@ class _EditProduct extends State<EditProduct> {
                     color: Colors.blue),
                 onPressed: () {
                   setState(() {
-                    if (isEditingName) {
+                    if (isEditingName && widget.product.productName != nameController.text) {
                       DatabaseService().updateName(id: widget.product.productId, name: nameController.text);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Name updated to ${nameController.text}'),
-                          duration: Duration(seconds: 2),
-                        ),
-                      );
+                      snackBar('Name updated to ${nameController.text}');
                     } 
                     widget.product.productName = nameController.text;
                     isEditingName = !isEditingName;
@@ -125,10 +145,11 @@ class _EditProduct extends State<EditProduct> {
           // PRODUCT BARCODE
           Row(
             children: [
-              Text("Barcode: "),               
+              Text("Barcode: ", style: attributeTextStyle),               
               isEditingBarcode
-              ? SizedBox(
-                  width: 100,
+              ? Container(
+                  decoration: BoxDecoration(color: const Color.fromARGB(255, 224, 224, 224)),
+                  width: 200,
                   child: TextField(
                     controller: barcodeController,
                     keyboardType: TextInputType.number,
@@ -139,10 +160,15 @@ class _EditProduct extends State<EditProduct> {
                     ),
                   ),
                 )
-              : Text(
-                widget.product.barcode != "" ? "${widget.product.barcode}" : "N/A",
-                style: const TextStyle(
-                    fontSize: 16, fontWeight: FontWeight.bold),
+              : Container(
+                  decoration: notEditingDecoration,
+                  padding: EdgeInsets.all(9),
+                  width: 200,
+                  child: Text(
+                  widget.product.barcode != "" ? "${widget.product.barcode}" : "N/A",
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
+                ),
               ),
 
               IconButton(
@@ -152,22 +178,12 @@ class _EditProduct extends State<EditProduct> {
                     color: Colors.blue),
                 onPressed: () {
                   setState(() {
-                    if (isEditingBarcode) {
+                    if (isEditingBarcode && barcodeController.text != widget.product.barcode) {
                       if (RegExp(r'^[0-9]+$').hasMatch(barcodeController.text)) {
                         DatabaseService().updateBarcode(id: widget.product.productId, barcode: barcodeController.text);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Barcode updated to ${barcodeController.text}'),
-                            duration: Duration(seconds: 2),
-                          ),
-                        );
+                        snackBar('Barcode updated to ${barcodeController.text}');
                       } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Input should have numbers only'),
-                            duration: Duration(seconds: 2),
-                          ),
-                        );
+                        snackBar('Input should have numbers only');
                     }
 
                     }
@@ -182,7 +198,7 @@ class _EditProduct extends State<EditProduct> {
           // PRODUCT CATEGORY
           Row(
             children: [
-              const Text("Category: ", style: TextStyle(fontSize: 14)),
+              Text("Category: ", style: attributeTextStyle),
               DropdownButton<String>(
                 value: widget.product.category,
                 items: ['snack', "drink", "dish"].map<DropdownMenuItem<String>>((String value) {
@@ -190,12 +206,7 @@ class _EditProduct extends State<EditProduct> {
               }).toList(),
                 onChanged: (String? value) {
                   DatabaseService().updateCategory(id: widget.product.productId, category: value!);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Category updated to $value.'),
-                      duration: Duration(seconds: 2),
-                    ),
-                  );
+                  snackBar('Category updated to $value.');
                   setState(() {
                     widget.product.category = value;
                   
@@ -209,13 +220,14 @@ class _EditProduct extends State<EditProduct> {
           // PRODUCT PRICE
           Row(
             children: [
+              Text("Price: ₱", style: attributeTextStyle),
               isEditingPrice
-              ? SizedBox(
+              ? Container(
+                  decoration: BoxDecoration(color: const Color.fromARGB(255, 224, 224, 224)),
                   width: 100,
                   child: TextField(
                     controller: priceController,
                     keyboardType: TextInputType.number,
-                    textAlign: TextAlign.right,
                     decoration: const InputDecoration(
                       isDense: true,
                       contentPadding: EdgeInsets.all(6),
@@ -223,10 +235,16 @@ class _EditProduct extends State<EditProduct> {
                     ),
                   ),
                 )
-              : Text(
-                "Price: ₱${widget.product.price}",
-                style: const TextStyle(
-                    fontSize: 16, fontWeight: FontWeight.bold),
+              : Container( 
+                  decoration: notEditingDecoration,
+                  padding: EdgeInsets.all(9),
+                  width: 100,
+                  child: Text(
+                    "${widget.product.price}",
+                    style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold
+                    ),
+                  )
               ),
 
               IconButton(
@@ -236,16 +254,13 @@ class _EditProduct extends State<EditProduct> {
                     color: Colors.blue),
                 onPressed: () {
                   setState(() {
-                    if (isEditingPrice && double.parse(priceController.text) > 0) {
-                      DatabaseService().updateProductPrice(id: widget.product.productId, price: double.parse(priceController.text));
-                      Navigator.pop(context);
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Price should be more than 0'),
-                          duration: Duration(seconds: 2),
-                        ),
-                      );
+                    if (isEditingPrice && double.parse(priceController.text) != widget.product.price) {
+                      if (double.parse(priceController.text) > 0) {
+                        DatabaseService().updateProductPrice(id: widget.product.productId, price: double.parse(priceController.text));
+                        snackBar('Price updated to ₱${priceController.text}');
+                      } else {
+                        snackBar('Price should be more than ₱0');
+                      }
                     }
                     isEditingPrice = !isEditingPrice;
                   });
@@ -330,234 +345,6 @@ class _EditProduct extends State<EditProduct> {
           ),
         ],
       )
-    );
-
-    return Dialog(
-      insetPadding: const EdgeInsets.all(16),
-      backgroundColor: Colors.transparent,
-      child: Card(
-        color: Colors.white,
-        elevation: 6,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(bottom: 10),
-                  child: Center(
-                    child: Text(
-                      widget.product.productName,
-                      style: const TextStyle(
-                        fontSize: 28, fontWeight: FontWeight.bold),
-                    )
-                  ),
-                ),
-                // Product Image
-                widget.product.productImgUrl != "" ? Image.network(
-                  widget.product.productImgUrl,
-                  height: 120,
-                  width: 120,
-                  fit: BoxFit.fill,
-                  loadingBuilder: (BuildContext context, Widget child,
-                      ImageChunkEvent? loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return Center(
-                      child: CircularProgressIndicator(
-                        value: loadingProgress.expectedTotalBytes != null
-                            ? loadingProgress.cumulativeBytesLoaded /
-                                loadingProgress.expectedTotalBytes!
-                            : null,
-                      ),
-                    );
-                  },
-                ) : Image.asset('img/orderuplogo.png', width: 120, height: 120,),
-
-                const SizedBox(height: 10),
-
-                // Barcode + Category
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Row(
-                    children: [
-                      const Text("Barcode: ", style: TextStyle(fontSize: 14)),
-                      Text(widget.product.barcode != "" ? widget.product.barcode! : "N/A",
-                          style: const TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Row(
-                    children: [
-                      const Text("Category: ", style: TextStyle(fontSize: 14)),
-                      Text(widget.product.category,
-                          style: const TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 12),
-
-                // Indicators (left) and Price+Stock (right)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // Indicators
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Row(
-                          children: [
-                            Icon(Icons.arrow_upward,
-                                color: Colors.green, size: 16),
-                            SizedBox(width: 4),
-                            Text("Price Up"),
-                          ],
-                        ),
-                        SizedBox(height: 4),
-                        Row(
-                          children: [
-                            Icon(Icons.remove, color: Colors.grey, size: 16),
-                            SizedBox(width: 4),
-                            Text("Stable Price"),
-                          ],
-                        ),
-                        SizedBox(height: 4),
-                        Row(
-                          children: [
-                            Icon(Icons.arrow_downward,
-                                color: Colors.red, size: 16),
-                            SizedBox(width: 4),
-                            Text("Price Down"),
-                          ],
-                        ),
-                      ],
-                    ),
-
-                    // Price + Stock
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        // 👇 Edit button above price
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: IconButton(
-                            icon: Icon(
-                                isEditingPrice ? Icons.check : Icons.edit,
-                                size: 18,
-                                color: Colors.blue),
-                            onPressed: () {
-                              setState(() {
-                                if (isEditingPrice) {
-                                  widget.product.price = double.parse(priceController.text);
-                                }
-                                isEditingPrice = !isEditingPrice;
-                              });
-                            },
-                          ),
-                        ),
-
-                        // 👇 Price value
-                        isEditingPrice
-                            ? SizedBox(
-                                width: 100,
-                                child: TextField(
-                                  controller: priceController,
-                                  keyboardType: TextInputType.number,
-                                  textAlign: TextAlign.right,
-                                  decoration: const InputDecoration(
-                                    isDense: true,
-                                    contentPadding: EdgeInsets.all(6),
-                                    border: OutlineInputBorder(),
-                                  ),
-                                ),
-                              )
-                            : Text(
-                                "Price: ₱${widget.product.price}",
-                                style: const TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
-                              ),
-
-                        const SizedBox(height: 6),
-
-                        Text(
-                          "Stock: ${widget.product.quantity}",
-                          style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 18),
-
-                // Quantity selector
-                const Text("Quantity",
-                    style:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      icon:
-                          const Icon(Icons.remove_circle, color: Colors.grey),
-                      onPressed: () {
-                        setState(() {
-                          if (quantity > 0) quantity--;
-                        });
-                      },
-                    ),
-                    Text("$quantity",
-                        style: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold)),
-                    IconButton(
-                      icon: const Icon(Icons.add_circle,
-                          color: Color.fromARGB(255, 161, 24, 29)),
-                      onPressed: () {
-                        setState(() {
-                          quantity++;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-
-                // Add Stock button
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 161, 24, 29),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30)),
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context, {
-                        "quantity": quantity,
-                        "price": widget.product.price,
-                      });
-                    },
-                    child: const Text(
-                      "Add Stock",
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
     );
   }
 }
