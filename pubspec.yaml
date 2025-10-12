@@ -67,6 +67,7 @@ flutter:
     - img/orderuplogo.png
     - img/about1.PNG
     - img/about2.PNG
+    - img/reports_card_bg.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

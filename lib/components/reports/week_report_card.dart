@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:order_up_app/components/misc/app_colors.dart';
 import '../../../backend/database_service.dart';
 import 'package:order_up_app/pages/navbar_items/home_page.dart';
 import 'package:order_up_app/components/misc/bottom_nav_bar.dart';
@@ -21,9 +22,24 @@ class _WeekReportCard extends State<WeekReportCard> {
   @override
   Widget build(BuildContext context) {
 
+    Map months = {
+      '1': "Jan",
+      '2': "Feb",
+      '3': "Mar",
+      '4': "Apr",
+      '5': "May",
+      '6': "Jun",
+      '7': "Jul",
+      '8': "Aug",
+      '9': "Sep",
+      '10': "Oct",
+      '11': "Nov",
+      '12': "Dec",
+    };
+
     DateTime endRange = widget.startDateWeek.add(Duration(days: 6));
-    String startDate = "${widget.startDateWeek.year}-${widget.startDateWeek.month.toString().padLeft(2, '0')}-${widget.startDateWeek.day.toString().padLeft(2, '0')}";
-    String endDate = "${endRange.year}-${endRange.month.toString().padLeft(2, '0')}-${endRange.day.toString().padLeft(2, '0')}";
+    String startDate = "${months[widget.startDateWeek.month.toString()]} ${widget.startDateWeek.day.toString()} ${widget.startDateWeek.year}";
+    String endDate = "${months[endRange.month.toString()]} ${endRange.day.toString()} ${endRange.year}";
 
     return InkWell(onTap: () {
       Navigator.push(context, MaterialPageRoute(builder: (context) => 
@@ -34,12 +50,27 @@ class _WeekReportCard extends State<WeekReportCard> {
       );
     },
       child: Container(
-        
         width: 380,
         margin: EdgeInsets.all(10),
         padding: EdgeInsets.only(top: 10, bottom: 10),
         decoration: BoxDecoration(borderRadius:BorderRadius.circular(8), color: Colors.white),
-        child: Center(child: Text('$startDate -> $endDate', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),))
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Image.asset('img/reports_card_bg.png', width: 350),
+            Container(
+              padding: EdgeInsets.all(24),
+              decoration: BoxDecoration(color: AppColors.whiteColor, borderRadius: BorderRadius.circular(8)),
+              child: Column(
+                children: [
+                  Text('Week Report', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                  Text('[$startDate - $endDate]', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),)
+                ]
+              ),
+            )
+
+          ],
+        )
       ),
       );
   }

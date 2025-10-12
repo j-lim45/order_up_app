@@ -63,12 +63,22 @@ class WeeklyReportsColumn extends StatelessWidget {
           (salesWeekDivision[mondayOfWeek] ??= []).add(sale); 
         }
 
+        Map months = {
+          '1': "Jan",
+          '2': "Feb",
+          '3': "Mar",
+          '4': "Apr",
+          '5': "May",
+          '6': "Jun",
+          '7': "Jul",
+          '8': "Aug",
+          '9': "Sep",
+          '10': "Oct",
+          '11': "Nov",
+          '12': "Dec",
+        };
         List<WeekReportCard> container = [];
         for (var i in salesWeekDivision.entries) {
-          DateTime endRange = i.key.add(Duration(days: 6));
-          String startDate = "${i.key.year}-${i.key.month.toString().padLeft(2, '0')}-${i.key.day.toString().padLeft(2, '0')}";
-          String endDate = "${endRange.year}-${endRange.month.toString().padLeft(2, '0')}-${endRange.day.toString().padLeft(2, '0')}";
-
           container.insert(0,
             WeekReportCard(theList: i.value, startDateWeek: i.key)
           );
