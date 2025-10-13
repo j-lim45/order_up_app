@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:order_up_app/backend/class/sale_class.dart';
 import 'package:order_up_app/components/misc/app_colors.dart';
-import 'package:order_up_app/components/stock/edit_product.dart';
 import 'package:order_up_app/backend/class/product_class.dart';
 import 'package:order_up_app/backend/firebase/database_service.dart';
 
@@ -16,11 +15,11 @@ class BestSellerCard extends StatefulWidget {
 
 class _BestSellerCard extends State<BestSellerCard> {
 
+  // Returns sales from today
   Future<Map<String, Map>> getSales() async {
     List salesList = await DatabaseService().getFirstSale();
     Map<String, Map<String, dynamic>> salesToday = {};
     
-
     DateTime timeNow = DateTime.now();
     for (Sale sale in salesList) {
       DateTime currentSaleDate = sale.dateTime;
@@ -44,6 +43,7 @@ class _BestSellerCard extends State<BestSellerCard> {
     return salesToday;
   }
 
+  // Gets top three products sold today by quantity
   getTopThree() async {
     Map map = await getSales();
     List entries = map.entries.toList();
@@ -56,6 +56,7 @@ class _BestSellerCard extends State<BestSellerCard> {
     return topThreeList;
   }
 
+  // Gets list of containers with top three products
   Future<List<Container>> getBestContainers() async {
     List<Container> containers = [];
     List topThree = await getTopThree();
