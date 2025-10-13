@@ -112,7 +112,7 @@ class _LoginPage extends State<LoginPage> {
                                 ),
                                 TextField(
                                   controller: _passwordController,
-                                  obscureText: true,
+                                  obscureText: _obscurePassword,
                                   decoration: InputDecoration(
                                     prefixIcon: const Icon(Icons.lock_outline),
                                     hintText: "Type your password",

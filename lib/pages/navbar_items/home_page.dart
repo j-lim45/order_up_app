@@ -34,7 +34,7 @@ class _HomePage extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  margin: EdgeInsets.only(left: 12),
+                  margin: EdgeInsets.only(left: 12, top: 12),
                   height: 64,
                   child: Text(
                     "Hello, ${snapshot.data}!",
@@ -44,12 +44,20 @@ class _HomePage extends State<HomePage> {
                     )
                   ),
                 ),
+                SizedBox(height:10),
                 Center(
                   child: Text('Best Sellers', 
                     style: TextStyle(fontSize: 32, fontWeight: FontWeight.w600)
                   )
                 ),
+                SizedBox(height:10),
                 BestSellerCard(),
+                SizedBox(height:30),
+                Center(
+                  child: Text('Daily Dashboard', 
+                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.w600)
+                  )
+                ),
                 DailyDashboard()
               ],
             )

@@ -42,28 +42,121 @@ class _DailyDashboard extends State<DailyDashboard> {
     return salesToday;
   }
 
-  
+  Future<double> getAttributeToday(String attribute) async {
+    Map map = await getSales();
+    
+    double counter = 0;
+    for (var i in map.values) {
+      counter += i[attribute];
+    }
 
-  getTopRevenue() async {
+    return counter;
+  }
+
+  Future<MapEntry> getTopAttribute(String attribute) async {
     Map map = await getSales();
     List entries = map.entries.toList();
 
-    // Sort descending by quantity
-    entries.sort((a, b) => (b.value['revenue'] as num).compareTo(a.value['revenue'] as num));
+    entries.sort((a, b) => (b.value[attribute] as num).compareTo(a.value[attribute] as num));
 
-    List topThreeList = entries.take(1).toList();
+    List topProduct = entries.take(1).toList();
 
-    return topThreeList[0];
+    return topProduct[0];
+  }
+
+  Future<MapEntry> getTotalDaily(String attribute) async {
+    Map map = await getSales();
+    List entries = map.entries.toList();
+
+    entries.sort((a, b) => (b.value[attribute] as num).compareTo(a.value[attribute] as num));
+
+    List topProduct = entries.take(1).toList();
+
+    return topProduct[0];
   } 
 
-  Future<List<Container>> getBestContainers() async {
-    List<Container> containers = [];
-    var topProductRevenue = await getTopRevenue();
 
-    print(topProductRevenue.entry);
-    print(topProductRevenue.runtimeType);
+  Future<Container> containerContent() async {
+    MapEntry topRevenue = await getTopAttribute('revenue');
+    MapEntry topQuantity = await getTopAttribute('quantity');
+    Product topRevenueProduct = await DatabaseService().getProduct(key: topRevenue.key);
+    Product topQuantityProduct = await DatabaseService().getProduct(key: topQuantity.key);
+    int salesMadeToday = (await getAttributeToday('quantity')).toInt();
+    double revenueMadeToday = await getAttributeToday('revenue');
 
-    return containers;
+    return Container(
+      margin: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8), 
+            color: AppColors.maroonColor,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.3), 
+                blurRadius: 10,
+                spreadRadius: 2,
+                offset: Offset(0, 0), 
+              ),
+            ],
+          ),
+          padding: EdgeInsets.all(16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "• Most Revenue: ",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    TextSpan(text: "${topRevenueProduct.productName} (₱${topRevenue.value['revenue']})"),
+                  ],
+                ),
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+              SizedBox(height: 10),
+              Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "• Most Sales: ",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    TextSpan(text: "${topQuantityProduct.productName} (${topQuantity.value['quantity']})"),
+                  ],
+                ),
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+              SizedBox(height: 10),
+              Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "• No. of Sales Today: ",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    TextSpan(text: "$salesMadeToday"),
+                  ],
+                ),
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+              SizedBox(height: 10),
+              Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: '• Revenue Today: ',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    TextSpan(text: '₱$revenueMadeToday'),
+                  ],
+                ),
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              )
+            ],
+          ),
+    );
   }
 
   @override
@@ -71,8 +164,8 @@ class _DailyDashboard extends State<DailyDashboard> {
     return StreamBuilder<DatabaseEvent>(
       stream: FirebaseDatabase.instance.ref("sales").onValue,
       builder: (context, snapshot) {
-        return FutureBuilder<List<Widget>>(
-          future: getBestContainers(),
+        return FutureBuilder<Container>(
+          future: containerContent(),
           builder: (context, containerSnapshot) {
             if (containerSnapshot.connectionState == ConnectionState.waiting) {
               return const CircularProgressIndicator();
@@ -83,15 +176,20 @@ class _DailyDashboard extends State<DailyDashboard> {
 
             return Center(
               child: Container(
-                width: 350, height: 200,
+                width: 350, height: 224,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  color: Colors.white
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.2), // shadow color
+                      blurRadius: 10, // how soft the shadow is
+                      spreadRadius: 2, // how wide the shadow spreads
+                      offset: Offset(4, 4), // x and y direction (right, down)
+                    ),
+                  ],
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: (containerSnapshot.data == null || containerSnapshot.data!.isEmpty) ? [Text("No sales today.")] : containerSnapshot.data!,
-                )
+                child: containerSnapshot.data
               )
             );
           },

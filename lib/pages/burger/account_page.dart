@@ -123,7 +123,7 @@ class _AccountPage extends State<AccountPage> {
                               ),
                             ),
 
-                            Image.network('https://www.bworldonline.com/wp-content/uploads/2025/02/312m-BingoPlus-KV-NCR_Print-Ad_Business-World_29.7x27cm_CMYK-OL.jpg')                      
+                            Center(child: Opacity(opacity: 0.7, child: Image.asset('img/orderuplogo.png', width: 320)))                     
                           ],
                         ),
                       ),

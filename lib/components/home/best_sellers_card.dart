@@ -67,7 +67,15 @@ class _BestSellerCard extends State<BestSellerCard> {
           width: 100, height: 180, margin: EdgeInsets.all(8),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: AppColors.whiteColor
+            color: AppColors.pitchColor,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.2), 
+                blurRadius: 10,
+                spreadRadius: 2,
+                offset: Offset(0, 0), 
+              ),
+            ],
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -80,7 +88,7 @@ class _BestSellerCard extends State<BestSellerCard> {
                 ),
                 child: Image.network(product.productImgUrl, width: 64)
               ),
-              Text(product.productName, style: TextStyle(fontWeight: FontWeight.bold)),
+              Text(product.productName, textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold)),
               Text('${top.value['quantity']} sold today')
             ],
           ),
@@ -112,12 +120,21 @@ class _BestSellerCard extends State<BestSellerCard> {
                 width: 350, height: 200,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  color: Colors.white
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.2),
+                      blurRadius: 10,
+                      spreadRadius: 2, 
+                      offset: Offset(4, 4),
+                    ),
+                  ],
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: (containerSnapshot.data == null || containerSnapshot.data!.isEmpty) ? [Text("No sales today.")] : containerSnapshot.data!,
-                )
+                ),
+                
               )
             );
           },

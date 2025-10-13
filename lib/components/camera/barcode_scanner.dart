@@ -4,6 +4,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:order_up_app/backend/database_service.dart';
 import 'package:order_up_app/components/menu/add_sale.dart';
 import 'package:order_up_app/backend/product_class.dart';
+import 'package:order_up_app/components/misc/app_colors.dart';
 
 class BarcodeScanner extends StatefulWidget {
   const BarcodeScanner({super.key});
@@ -86,6 +87,21 @@ class _BarcodeScanner extends State<BarcodeScanner> {
                 size: MediaQuery.of(context).size,
                 painter: ScannerOverlay(),
               ),
+
+            SizedBox(
+              height: 110,
+              child: Center(
+                  child: Text(
+                  "Scan Product Barcode",
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.pitchColor
+                  )
+                ),
+              )
+            )
+            
           ],
         );
       }

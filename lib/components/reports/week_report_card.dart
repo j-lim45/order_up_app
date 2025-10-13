@@ -60,7 +60,10 @@ class _WeekReportCard extends State<WeekReportCard> {
             Image.asset('img/reports_card_bg.png', width: 350),
             Container(
               padding: EdgeInsets.all(24),
-              decoration: BoxDecoration(color: AppColors.whiteColor, borderRadius: BorderRadius.circular(8)),
+              decoration: BoxDecoration(
+                color: AppColors.whiteColor.withValues(alpha: 0.6), 
+                borderRadius: BorderRadius.circular(8),
+              ),
               child: Column(
                 children: [
                   Text('Week Report', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),

@@ -47,6 +47,11 @@ class _EditProduct extends State<EditProduct> {
   bool isEditingPrice = false;
   late TextEditingController priceController;
 
+  // Error Messages
+  String nameErrorMessage = "";
+  String barcodeErrorMessage = "";
+  String priceErrorMessage = "";
+
   @override
   void initState() {
     super.initState();
@@ -152,11 +157,22 @@ class _EditProduct extends State<EditProduct> {
                       color: Colors.blue),
                   onPressed: () {
                     setState(() {
-                      if (isEditingName && widget.product.productName != nameController.text) {
-                        DatabaseService().updateName(id: widget.product.productId, name: nameController.text);
-                        snackBar('Name updated to ${nameController.text}');
-                      } 
-                      widget.product.productName = nameController.text;
+                    String disallowedChars = "@#{};\'\"";
+                    final disallowedRegex = RegExp('[' + RegExp.escape(disallowedChars) + ']');
+
+                      if (nameController.text != widget.product.productName) {
+                        if (nameController.text == "") {
+                          snackBar('Name should not be empty.');
+                          nameController.text = widget.product.productName;
+                        } else if (disallowedRegex.hasMatch(nameController.text)) {
+                          snackBar("Product has disallowed characters: @#{};\'\"");
+                          nameController.text = widget.product.productName;
+                        } else if (isEditingName && widget.product.productName != nameController.text) {
+                          DatabaseService().updateName(id: widget.product.productId, name: nameController.text);
+                          snackBar('Name updated to ${nameController.text}');
+                          widget.product.productName = nameController.text;
+                        } 
+                      }
                       isEditingName = !isEditingName;
                     });
                   },
@@ -324,7 +340,10 @@ class _EditProduct extends State<EditProduct> {
                       color: Colors.blue),
                   onPressed: () {
                     setState(() {
-                      if (isEditingPrice && double.parse(priceController.text) != widget.product.price) {
+                      if (priceController.text == "") {
+                        snackBar('Price should not be empty.');
+                        priceController.text = widget.product.price.toString();
+                      } else if (isEditingPrice && double.parse(priceController.text) != widget.product.price) {
                         if (double.parse(priceController.text) > 0) {
                           DatabaseService().updateProductPrice(id: widget.product.productId, price: double.parse(priceController.text));
                           snackBar('Price updated to ₱${priceController.text}');
