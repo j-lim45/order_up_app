@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:order_up_app/components/misc/app_colors.dart';
-import 'package:order_up_app/components/stock/edit_product.dart';
 import 'package:order_up_app/components/menu/add_sale.dart';
 import 'package:order_up_app/backend/class/product_class.dart';
 
 
 class MenuTable extends StatelessWidget {
+  // Used to determine what products will be shown on this table by category
   final String category;
 
   const MenuTable({super.key, required this.category});
@@ -53,15 +53,22 @@ class MenuTable extends StatelessWidget {
                 margin: EdgeInsets.only(top: 2, bottom: 2),
                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: AppColors.greyContainer),
                 child: ListTile(
+
+                  // Shows the actual image if product has a valid image link, shows app logo if otherwise
                   leading: currentProduct.productImgUrl.toString() != "" ? 
                   Image.network(
                     errorBuilder: (context, error, stackTrace) {
                       return Image.asset('img/orderuplogo.png', fit: BoxFit.cover);
                     },
                     currentProduct.productImgUrl.toString(),
+
                     width: 40, height: 40
                   ) : Image.asset('img/orderuplogo.png'),
+
+                  // Product name
                   title: Text(currentProduct.productName, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
+
+                  // Opens Add Sale widget when clicked on corresponding to product
                   onTap: () => showDialog(
                     context: context, 
                     builder: (BuildContext context) {
