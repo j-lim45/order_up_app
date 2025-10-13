@@ -52,10 +52,10 @@ class _BarcodeScanner extends State<BarcodeScanner> {
           return Center(child: Text("Error: ${snapshot.error}"));
         }
 
-        
-
         return Stack(
           children: [
+
+            // The scanner instance
             MobileScanner(
               controller: controller,
               onDetect: (result) async {
@@ -82,11 +82,13 @@ class _BarcodeScanner extends State<BarcodeScanner> {
               },
             ),
 
+            // Dark opaque overlay
             CustomPaint(
                 size: MediaQuery.of(context).size,
                 painter: ScannerOverlay(),
               ),
 
+            // Label Text
             SizedBox(
               height: 110,
               child: Center(
@@ -113,14 +115,11 @@ class ScannerOverlay extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final paint = Paint()..color = const Color.fromRGBO(0, 0, 0, 0.6);
 
-    // Fill the whole screen
     final background = Path()..addRect(Rect.fromLTWH(0, 0, size.width, size.height));
 
-    // Fixed cutout size (640x480)
     const double cutOutWidth = 640;
     const double cutOutHeight = 480;
 
-    // Center the cutout
     double left = (size.width - cutOutWidth) / 2;
     double top = (size.height - cutOutHeight) / 2;
 
@@ -130,11 +129,9 @@ class ScannerOverlay extends CustomPainter {
         const Radius.circular(12),
       ));
 
-    // Background minus cutout
     final overlay = Path.combine(PathOperation.difference, background, cutOut);
     canvas.drawPath(overlay, paint);
 
-    // Optional border
     final borderPaint = Paint()
       ..color = Colors.white
       ..style = PaintingStyle.stroke
