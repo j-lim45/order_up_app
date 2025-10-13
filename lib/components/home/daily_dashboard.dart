@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:order_up_app/backend/class/sale_class.dart';
 import 'package:order_up_app/components/misc/app_colors.dart';
-import 'package:order_up_app/components/stock/edit_product.dart';
 import 'package:order_up_app/backend/class/product_class.dart';
 import 'package:order_up_app/backend/firebase/database_service.dart';
 
@@ -15,6 +14,7 @@ class DailyDashboard extends StatefulWidget {
 
 class _DailyDashboard extends State<DailyDashboard> {
 
+  // Gets sales from today
   Future<Map<String, Map>> getSales() async {
     List salesList = await DatabaseService().getFirstSale();
     Map<String, Map<String, dynamic>> salesToday = {};
@@ -42,6 +42,7 @@ class _DailyDashboard extends State<DailyDashboard> {
     return salesToday;
   }
 
+  // Method that returns either total 'quantity' or 'revenue' for today
   Future<double> getAttributeToday(String attribute) async {
     Map map = await getSales();
     
@@ -53,6 +54,7 @@ class _DailyDashboard extends State<DailyDashboard> {
     return counter;
   }
 
+  // Returns the product with highest 'quantity' or 'revenue' for today
   Future<MapEntry> getTopAttribute(String attribute) async {
     Map map = await getSales();
     List entries = map.entries.toList();
@@ -63,18 +65,6 @@ class _DailyDashboard extends State<DailyDashboard> {
 
     return topProduct[0];
   }
-
-  Future<MapEntry> getTotalDaily(String attribute) async {
-    Map map = await getSales();
-    List entries = map.entries.toList();
-
-    entries.sort((a, b) => (b.value[attribute] as num).compareTo(a.value[attribute] as num));
-
-    List topProduct = entries.take(1).toList();
-
-    return topProduct[0];
-  } 
-
 
   Future<Container> containerContent() async {
     MapEntry topRevenue = await getTopAttribute('revenue');
@@ -182,10 +172,10 @@ class _DailyDashboard extends State<DailyDashboard> {
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.2), // shadow color
-                      blurRadius: 10, // how soft the shadow is
-                      spreadRadius: 2, // how wide the shadow spreads
-                      offset: Offset(4, 4), // x and y direction (right, down)
+                      color: Colors.black.withValues(alpha: 0.2),
+                      blurRadius: 10,
+                      spreadRadius: 2,
+                      offset: Offset(4, 4),
                     ),
                   ],
                 ),
