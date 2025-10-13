@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:order_up_app/backend/database_service.dart';
+import 'package:order_up_app/backend/firebase/database_service.dart';
 import 'package:order_up_app/components/menu/add_sale.dart';
-import 'package:order_up_app/backend/product_class.dart';
+import 'package:order_up_app/backend/class/product_class.dart';
 import 'package:order_up_app/components/misc/app_colors.dart';
 
 class BarcodeScanner extends StatefulWidget {
@@ -14,12 +14,11 @@ class BarcodeScanner extends StatefulWidget {
 }
 
 class _BarcodeScanner extends State<BarcodeScanner> {
-  bool barcodePicked = false; // Used to avoid multiple instances of Add Sale dialog stacked on each other
+  // Used to avoid multiple instances of Add Sale dialog stacked on each other
+  bool barcodePicked = false; 
 
-
-  // Please clean this
+  // Checks if camera detected barcode matches a barcode entry in each product
   detectedBarcode(String? result, AsyncSnapshot<DatabaseEvent> snapshot) {
-
     final data = snapshot.data!.snapshot.value as Map<Object?, Object?>;
     for (var product in data.entries) {
       final productRow = product.value as Map<Object?, Object?>;
