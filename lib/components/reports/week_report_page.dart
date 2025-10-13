@@ -6,20 +6,15 @@ import 'package:order_up_app/components/reports/category_sales_table.dart';
 import 'package:order_up_app/components/reports/best_seller_table.dart';
 
 
-
 class WeekReportPage extends StatelessWidget {
   final List<Sale> theList;
   final DateTime startDateWeek;
-
-
-
 
   const WeekReportPage({super.key, required this.theList, required this.startDateWeek});
   @override
   Widget build(BuildContext context) {
     final DateTime endDateWeek = startDateWeek.add(Duration(days: 6));
     
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.maroonColor, foregroundColor: AppColors.whiteColor,

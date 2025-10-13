@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:order_up_app/backend/firebase/database_service.dart';
 import 'package:order_up_app/components/misc/app_colors.dart';
