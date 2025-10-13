@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:order_up_app/components/misc/app_colors.dart';
-import 'package:order_up_app/backend/class/product_class.dart';
 import 'package:order_up_app/backend/class/sale_class.dart';
 import 'package:order_up_app/components/reports/week_report_card.dart';
 
@@ -9,12 +7,6 @@ import 'package:order_up_app/components/reports/week_report_card.dart';
 class WeeklyReportsColumn extends StatelessWidget {
 
   const WeeklyReportsColumn({super.key});
-
-  Future<List<Widget>> getList() async {
-    List<Widget> test = [];
-
-    return test;
-  }
   
   @override
   Widget build(BuildContext context) {
@@ -47,6 +39,7 @@ class WeeklyReportsColumn extends StatelessWidget {
           ));
         }
 
+        // Maps every list of sales to their corresponding monday of that week (Division of each sale by week)
         Map<DateTime, List<Sale>> salesWeekDivision = {};
         for (Sale sale in salesList) {
           DateTime mondayOfWeek = sale.dateTime.subtract(Duration(days: sale.dateTime.weekday - 1));
@@ -63,20 +56,7 @@ class WeeklyReportsColumn extends StatelessWidget {
           (salesWeekDivision[mondayOfWeek] ??= []).add(sale); 
         }
 
-        Map months = {
-          '1': "Jan",
-          '2': "Feb",
-          '3': "Mar",
-          '4': "Apr",
-          '5': "May",
-          '6': "Jun",
-          '7': "Jul",
-          '8': "Aug",
-          '9': "Sep",
-          '10': "Oct",
-          '11': "Nov",
-          '12': "Dec",
-        };
+        // Columns of Week Report Cards
         List<WeekReportCard> container = [];
         for (var i in salesWeekDivision.entries) {
           container.insert(0,
