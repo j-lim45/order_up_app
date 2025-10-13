@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:order_up_app/backend/auth_service.dart';
+import 'package:order_up_app/backend/firebase/auth_service.dart';
 import 'package:order_up_app/pages/burger/about_page.dart';
 import 'package:order_up_app/pages/burger/account_page.dart';
-import '../backend/database_service.dart';
+import '../backend/firebase/database_service.dart';
 import 'package:order_up_app/pages/navbar_items/home_page.dart';
 import 'package:order_up_app/pages/navbar_items/stock_page.dart';
 import 'package:order_up_app/pages/navbar_items/reports_page.dart';

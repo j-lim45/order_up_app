@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:order_up_app/backend/sale_class.dart';
-import 'package:order_up_app/backend/database_service.dart';
-import 'package:order_up_app/backend/product_class.dart';
+import 'package:order_up_app/backend/class/sale_class.dart';
+import 'package:order_up_app/backend/firebase/database_service.dart';
+import 'package:order_up_app/backend/class/product_class.dart';
 
 
 class CategorySalesTable extends StatelessWidget {

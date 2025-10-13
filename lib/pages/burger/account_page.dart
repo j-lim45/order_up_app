@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:order_up_app/backend/database_service.dart';
+import 'package:order_up_app/backend/firebase/database_service.dart';
 import 'package:order_up_app/components/misc/app_colors.dart';
 
 class AccountPage extends StatefulWidget {

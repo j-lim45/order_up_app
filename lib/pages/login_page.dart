@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:order_up_app/backend/auth_service.dart';
+import 'package:order_up_app/backend/firebase/auth_service.dart';
 import 'package:order_up_app/pages/loading_screen.dart';
 import 'package:order_up_app/pages/main_page.dart';
 import 'package:order_up_app/pages/forgot_password.dart';

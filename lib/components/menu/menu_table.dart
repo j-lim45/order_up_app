@@ -3,7 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:order_up_app/components/misc/app_colors.dart';
 import 'package:order_up_app/components/stock/edit_product.dart';
 import 'package:order_up_app/components/menu/add_sale.dart';
-import 'package:order_up_app/backend/product_class.dart';
+import 'package:order_up_app/backend/class/product_class.dart';
 
 
 class MenuTable extends StatelessWidget {

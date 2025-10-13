@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:order_up_app/components/misc/app_colors.dart';
-import 'package:order_up_app/backend/product_class.dart';
-import 'package:order_up_app/backend/sale_class.dart';
+import 'package:order_up_app/backend/class/product_class.dart';
+import 'package:order_up_app/backend/class/sale_class.dart';
 import 'package:order_up_app/components/reports/week_report_card.dart';
 
 

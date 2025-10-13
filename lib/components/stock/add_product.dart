@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:order_up_app/backend/database_service.dart';
+import 'package:order_up_app/backend/firebase/database_service.dart';
 import 'package:order_up_app/components/misc/app_colors.dart';
 
 const List<String> categories = ['Snack', "Drink", "Dish"];
@@ -48,7 +48,6 @@ class _AddProduct extends State<AddProduct> {
         nameErrorMsg = "";
       }
 
-      print('${priceController.text == ""}');
       try {
         if (double.parse(priceController.text) <= 0) {
           validInputs = false;

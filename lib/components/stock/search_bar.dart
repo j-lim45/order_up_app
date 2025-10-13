@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:order_up_app/components/stock/edit_product.dart';
-import 'package:order_up_app/backend/product_class.dart';
+import 'package:order_up_app/backend/class/product_class.dart';
 
 
 class StockSearchBar extends StatefulWidget {

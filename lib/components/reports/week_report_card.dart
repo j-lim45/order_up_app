@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:order_up_app/components/misc/app_colors.dart';
-import '../../../backend/database_service.dart';
+import '../../backend/firebase/database_service.dart';
 import 'package:order_up_app/pages/navbar_items/home_page.dart';
 import 'package:order_up_app/components/misc/bottom_nav_bar.dart';
 import 'package:order_up_app/components/reports/week_report_page.dart';
-import 'package:order_up_app/backend/sale_class.dart';
+import 'package:order_up_app/backend/class/sale_class.dart';
 
 class WeekReportCard extends StatefulWidget {
   final List<Sale> theList;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:order_up_app/components/misc/app_colors.dart';
-import 'package:order_up_app/backend/sale_class.dart';
+import 'package:order_up_app/backend/class/sale_class.dart';
 import 'package:order_up_app/components/reports/sales_table.dart';
 import 'package:order_up_app/components/reports/category_sales_table.dart';
 import 'package:order_up_app/components/reports/best_seller_table.dart';
