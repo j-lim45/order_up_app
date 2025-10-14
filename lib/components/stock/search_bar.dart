@@ -42,7 +42,6 @@ class _StockSearchBar extends State<StockSearchBar> {
         }
 
         // Raw json data from products database
-        print(snapshot.data!.snapshot.value);
         final data = snapshot.data!.snapshot.value as Map<Object?, Object?>;
 
         Map<String, String> searchList = {};
@@ -97,8 +96,6 @@ class _StockSearchBar extends State<StockSearchBar> {
                   showDialog(
                     context: context, 
                     builder: (BuildContext context) {
-
-                      print("Snapshot: (${snapshot.data})");
                       return EditProduct(product: getProduct(snapshot: snapshot, chosenKey: entry.key));
                     }
                   );

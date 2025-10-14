@@ -32,7 +32,6 @@ class _ForgotPassword extends State<ForgotPassword> {
     final _auth = FirebaseAuth.instance;
 
     Future<void> clickedSendEmail() async {
-      print("HEllo");
       try {
         await _auth.sendPasswordResetEmail(email: emailController.text.trim());
         ScaffoldMessenger.of(context).showSnackBar(
