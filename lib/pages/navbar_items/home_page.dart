@@ -55,6 +55,7 @@ class _HomePage extends State<HomePage> {
                     style: TextStyle(fontSize: 32, fontWeight: FontWeight.w600)
                   )
                 ),
+                SizedBox(height:10),
                 DailyDashboard()
               ],
             )
