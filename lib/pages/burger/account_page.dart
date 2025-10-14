@@ -82,7 +82,7 @@ class _AccountPage extends State<AccountPage> {
                                 Text(
                                   "${user?.email}",
                                   style: TextStyle(
-                                    fontSize: 32,
+                                    fontSize: 18,
                                     fontWeight: FontWeight.bold
                                   ),
                                 )
