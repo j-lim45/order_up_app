@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_database/firebase_database.dart';
-import '../../backend/firebase/database_service.dart';
-import 'package:order_up_app/pages/navbar_items/home_page.dart';
-import 'package:order_up_app/components/misc/bottom_nav_bar.dart';
 import 'package:order_up_app/components/reports/reports_column.dart';
 
 class ReportsPage extends StatefulWidget {
