@@ -215,15 +215,19 @@ class _LoginPage extends State<LoginPage> {
 
   void clickLoginButton() async {
     try {
-      await authService.value.signIn(
+      if (_emailController.text == "" || _passwordController.text == "") {
+        showError("Credential input should not be empty.");
+      } else {
+        await authService.value.signIn(
         email: _emailController.text,
         password: _passwordController.text,
-      );
-      setState(() {
+        );
+        _emailController.text = "";
         _passwordController.text = "";
-      });
+      }
+
     } catch (e) {
-      showError(e);
+      showError("Inputted credentials are incorrect, malformed, or have expired.");
     }
   }
 
