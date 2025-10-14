@@ -16,6 +16,7 @@ class _DailyDashboard extends State<DailyDashboard> {
 
   // Gets sales from today
   Future<Map<String, Map>> getSales() async {
+
     List salesList = await DatabaseService().getFirstSale();
     Map<String, Map<String, dynamic>> salesToday = {};
     
@@ -38,20 +39,22 @@ class _DailyDashboard extends State<DailyDashboard> {
       }
 
     }
-
+    
     return salesToday;
   }
 
   // Method that returns either total 'quantity' or 'revenue' for today
   Future<double> getAttributeToday(String attribute) async {
-    Map map = await getSales();
-    
-    double counter = 0;
-    for (var i in map.values) {
-      counter += i[attribute];
+    try {
+      Map map = await getSales();
+      double counter = 0;
+      for (var i in map.values) {
+        counter += i[attribute];
+      }
+      return counter;
+    } catch (e) {
+      return 0;
     }
-
-    return counter;
   }
 
   // Returns the product with highest 'quantity' or 'revenue' for today
@@ -62,15 +65,29 @@ class _DailyDashboard extends State<DailyDashboard> {
     entries.sort((a, b) => (b.value[attribute] as num).compareTo(a.value[attribute] as num));
 
     List topProduct = entries.take(1).toList();
-
-    return topProduct[0];
+    if (topProduct.isNotEmpty) {
+      return topProduct[0];
+    } else {
+      return MapEntry("null", {
+        "quantity": 0,
+        "revenue": 0
+      });
+    }
   }
 
   Future<Container> containerContent() async {
     MapEntry topRevenue = await getTopAttribute('revenue');
     MapEntry topQuantity = await getTopAttribute('quantity');
-    Product topRevenueProduct = await DatabaseService().getProduct(key: topRevenue.key);
-    Product topQuantityProduct = await DatabaseService().getProduct(key: topQuantity.key);
+
+    Product topRevenueProduct; Product topQuantityProduct;
+    if (topRevenue.key=="null" || topQuantity.key=="null") {
+      topRevenueProduct = Product(productId: 'null', productName: 'N/A', category: 'snack', productImgUrl: '', quantity: 0, price: 0);
+      topQuantityProduct = Product(productId: 'null', productName: 'N/A', category: 'snack', productImgUrl: '', quantity: 0, price: 0);
+    } else {
+      topRevenueProduct = await DatabaseService().getProduct(key: topRevenue.key);
+      topQuantityProduct = await DatabaseService().getProduct(key: topQuantity.key);
+    }
+
     int salesMadeToday = (await getAttributeToday('quantity')).toInt();
     double revenueMadeToday = await getAttributeToday('revenue');
 
