@@ -36,7 +36,7 @@ class CategorySalesTable extends StatelessWidget {
         cells: [
           DataCell(Text(i.key, style: textStyle)),
           DataCell(Text('${categoryArray[i.key][0]}', style: textStyle)),
-          DataCell(Text('${categoryArray[i.key][1]}', style: textStyle)),
+          DataCell(Text('₱${categoryArray[i.key][1]}', style: textStyle)),
         ] 
       ));
     }

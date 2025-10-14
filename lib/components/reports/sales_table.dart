@@ -19,10 +19,10 @@ class SalesTable extends StatelessWidget {
       saleRows.add(DataRow(
         cells: [
           DataCell(Text(product.productName, style: textStyle)),
-          DataCell(Text('${sale.dateTime}', style: textStyle)),
+          DataCell(Text('${sale.dateTime.month}/${sale.dateTime.day}/${sale.dateTime.year} ${sale.dateTime.hour}:${sale.dateTime.minute}:${sale.dateTime.second.toString().padLeft(2, '0')}', style: textStyle)),
           DataCell(Text('${sale.quantity}', style: textStyle)),
-          DataCell(Text('${sale.unitPrice}', style: textStyle)),
-          DataCell(Text('${sale.unitPrice*sale.quantity}', style: textStyle)),
+          DataCell(Text('₱${sale.unitPrice}', style: textStyle)),
+          DataCell(Text('₱${sale.unitPrice*sale.quantity}', style: textStyle)),
         ] 
       ));
     }

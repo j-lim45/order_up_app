@@ -37,7 +37,7 @@ class BestSellerTable extends StatelessWidget {
         cells: [
           DataCell(Text(i.value['productName'], style: textStyle)),
           DataCell(Text('${i.value['sales']}', style: textStyle)),
-          DataCell(Text('${i.value['revenue']}', style: textStyle)),
+          DataCell(Text('₱${i.value['revenue']}', style: textStyle)),
         ] 
       ));
     }
