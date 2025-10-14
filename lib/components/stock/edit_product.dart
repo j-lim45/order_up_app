@@ -265,16 +265,15 @@ class _EditProduct extends State<EditProduct> {
                   onPressed: () {
                     setState(() {
                       if (isEditingBarcode && barcodeController.text != widget.product.barcode) {
-                        if (RegExp(r'^[0-9]+$').hasMatch(barcodeController.text)) {
+                        if (RegExp(r'^[0-9]+$').hasMatch(barcodeController.text) || barcodeController.text == "") {
                           DatabaseService().updateBarcode(id: widget.product.productId, barcode: barcodeController.text);
-                          snackBar('Barcode updated to ${barcodeController.text}');
+                          snackBar('Barcode updated to ${barcodeController.text != "" ? barcodeController.text : "None"}');
                           widget.product.barcode = barcodeController.text;
                         } else {
                           snackBar('Input should have numbers only');
+                        }
                       }
-
-                      }
-                      widget.product.barcode = barcodeController.text;
+                      barcodeController.text = widget.product.barcode!;
                       isEditingBarcode = !isEditingBarcode;
                     });
                   },
@@ -339,17 +338,21 @@ class _EditProduct extends State<EditProduct> {
                       color: Colors.blue),
                   onPressed: () {
                     setState(() {
-                      if (priceController.text == "") {
-                        snackBar('Price should not be empty.');
-                        priceController.text = widget.product.price.toString();
-                      } else if (isEditingPrice && double.parse(priceController.text) != widget.product.price) {
-                        if (double.parse(priceController.text) > 0) {
-                          DatabaseService().updateProductPrice(id: widget.product.productId, price: double.parse(priceController.text));
-                          snackBar('Price updated to ₱${priceController.text}');
-                          widget.product.price = double.parse(priceController.text);
-                        } else {
-                          snackBar('Price should be more than ₱0');
+                      try {
+                        if (priceController.text == "") {
+                          snackBar('Price should not be empty.');
+                          priceController.text = widget.product.price.toString();
+                        } else if (isEditingPrice && double.parse(priceController.text) != widget.product.price) {
+                          if (double.parse(priceController.text) > 0) {
+                            DatabaseService().updateProductPrice(id: widget.product.productId, price: double.parse(priceController.text));
+                            snackBar('Price updated to ₱${priceController.text}');
+                            widget.product.price = double.parse(priceController.text);
+                          } else {
+                            snackBar('Price should be more than ₱0');
+                          }
                         }
+                      } catch (e) {
+                        snackBar("Price input is invalid");
                       }
                       isEditingPrice = !isEditingPrice;
                     });

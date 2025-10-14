@@ -60,7 +60,7 @@ class _AddProduct extends State<AddProduct> {
       }
       
 
-      if (!RegExp(r'^[0-9]+$').hasMatch(barcodeController.text)) {
+      if (!RegExp(r'^[0-9]+$').hasMatch(barcodeController.text) && barcodeController.text != "") {
         validInputs = false;
         barcodeErrorMsg = "Barcode should have numbers only.";
       } else {
@@ -273,61 +273,3 @@ class _AddProduct extends State<AddProduct> {
     );
   }
 }
-
-//     return AlertDialog(
-//       title: Text('Add New Product'),
-//       content: SizedBox(
-//         width: 300,
-//         height: 450,
-//         child: Column(
-//           children: [
-//             TextField(
-//               controller: productNameController,
-//               decoration: InputDecoration(
-//                 labelText: 'Product Name',
-//                 border: OutlineInputBorder()
-//               ),
-//             ),
-
-//             TextField(
-//               controller: priceController,
-//               decoration: InputDecoration(
-//                 labelText: 'Price',
-//                 hintText: '₱',
-//                 border: OutlineInputBorder()
-//               ),
-//             ),
-
-//             TextField(
-//               controller: imageController,
-//               decoration: InputDecoration(
-//                 labelText: 'Image Link (Optional)',
-//                 border: OutlineInputBorder()
-//               ),
-//             ),
-
-//             DropdownButton<String>(
-//               value: categoryPseudoController,
-//               items: categories.map<DropdownMenuItem<String>>((String value) {
-//               return DropdownMenuItem<String>(value: value, child: Text(value));
-//             }).toList(),
-//               onChanged: (String? value) {changedCategory(value);},
-//             ),
-
-//             TextField(
-//               inputFormatters: [],
-//               controller: barcodeController,
-//               decoration: InputDecoration(
-//                 labelText: 'Barcode Number (Optional)',
-//                 border: OutlineInputBorder()
-//               ),
-//             ),
-
-//             FloatingActionButton(onPressed: onClickedAddProduct),
-
-//           ],
-//         )
-//       )
-//     );
-//   }
-// }
