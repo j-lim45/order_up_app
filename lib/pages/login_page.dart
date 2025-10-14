@@ -219,7 +219,9 @@ class _LoginPage extends State<LoginPage> {
         email: _emailController.text,
         password: _passwordController.text,
       );
-      _passwordController.text = "";
+      setState(() {
+        _passwordController.text = "";
+      });
     } catch (e) {
       showError(e);
     }
