@@ -78,7 +78,7 @@ class _AccountPage extends State<AccountPage> {
                             ),
                             Row(
                               children: [
-                                Text("Email: ", style: TextStyle(fontSize: 24),),
+                                Text("Email: ", style: TextStyle(fontSize: 18),),
                                 Text(
                                   "${user?.email}",
                                   style: TextStyle(
@@ -91,7 +91,7 @@ class _AccountPage extends State<AccountPage> {
 
                             Row(
                               children: [
-                                Text("Account Creation: ", style: TextStyle(fontSize: 24),),
+                                Text("Account Creation: ", style: TextStyle(fontSize: 18),),
                                 Text(
                                   "${user?.metadata.creationTime!.month}-${user?.metadata.creationTime!.day}-${user?.metadata.creationTime!.year}",
                                   style: TextStyle(

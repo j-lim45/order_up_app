@@ -66,7 +66,14 @@ class MenuTable extends StatelessWidget {
                   ) : Image.asset('img/orderuplogo.png'),
 
                   // Product name
-                  title: Text(currentProduct.productName, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
+                  title: Text(
+                    currentProduct.productName, 
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 17
+                      ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    ),
 
                   // Opens Add Sale widget when clicked on corresponding to product
                   onTap: () => showDialog(

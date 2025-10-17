@@ -49,7 +49,12 @@ class StockTable extends StatelessWidget {
             
             productRows.add(
               DataRow(cells: [
-                DataCell(Text(productRow['name'].toString())),
+                DataCell(Text(
+                    productRow['name'].toString(),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                  )
+                ),
                 DataCell(Text(productRow['price'].toString())),
                 DataCell(Text(productRow['quantity'].toString(), style: TextStyle(color: productRow['quantity']==0 ? Colors.red : Colors.black),))
               ],
